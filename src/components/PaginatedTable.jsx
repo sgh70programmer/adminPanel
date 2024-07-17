@@ -8,6 +8,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionField, numOfPAge, se
   const [pages, setPages] = useState([]);
   const [pageCount, setPageCount] = useState(1);
   const [searchChar, setSearchChar] = useState("");
+  const pageRange = 3
 
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const PaginatedTable = ({ children, data, dataInfo, additionField, numOfPAge, se
   }, [currentPage, initData]);
 
   useEffect(() => {
-    
+
     setIninData(data.filter(d => d[searchParams.searchField].includes(searchChar)))
     setCurrentPage(1)
   }, [searchChar, data])
@@ -90,8 +91,19 @@ const PaginatedTable = ({ children, data, dataInfo, additionField, numOfPAge, se
               <span aria-hidden="true">&raquo;</span>
             </span>
           </li>
-          {pages.map((page) => (
-            <li className="page-item" key={page}>
+          {currentPage > pageRange ? (
+            <li className="page-item me-2">
+              <span
+                className="page-link pointer"
+                onClick={() => setCurrentPage(1)}
+              >
+                1
+              </span>
+            </li>
+          ) : null}
+
+          {pages.map((page) => {
+            return (page < currentPage + pageRange && page > currentPage - pageRange) && <li className="page-item" key={page}>
               <span
                 className={`page-link pointer ${currentPage == page ? "alert-success" : ""
                   }`}
@@ -100,7 +112,21 @@ const PaginatedTable = ({ children, data, dataInfo, additionField, numOfPAge, se
                 {page}
               </span>
             </li>
-          ))}
+          }
+
+          )}
+
+          {currentPage <= pageCount - pageRange ? (
+            <li className="page-item ms-2">
+              <span
+                className="page-link pointer"
+                onClick={() => setCurrentPage(pageCount)}
+              >
+                {pageCount}
+              </span>
+            </li>
+          ) : null}
+
           <li className="page-item">
             <span className={`page-link ${currentPage == pageCount && "disabled"}`} href="#" aria-label="Next"
               onClick={() => setCurrentPage(currentPage => currentPage + 1)}

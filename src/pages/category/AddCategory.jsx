@@ -16,6 +16,7 @@ const Addcategory = ({ setForceRender }) => {
   const [parents, setParents] = useState([]);
   const [editCategory, setEditCategory] = useState(null);
   const [reInitialValues, setReInitialValues] = useState(null)
+  const [closeModal, setCloseModal] = useState(false)
 
   const handleGetParentsCategories = async () => {
     try {
@@ -96,10 +97,11 @@ const Addcategory = ({ setForceRender }) => {
             ? "ویرایش : " + (editCategory ? editCategory.title : "")
             : "افزودن دسته محصولات"
         }
+        closeModal={closeModal}
       >
         <Formik
           initialValues={reInitialValues || initialValues}
-          onSubmit={(values, actions) => onSubmit(values, actions, setForceRender, editId)}
+          onSubmit={(values, actions) => onSubmit(values, actions, setForceRender, editId, setCloseModal)}
           validationSchema={validationSchema}
           enableReinitialize
         >

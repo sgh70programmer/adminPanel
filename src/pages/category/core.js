@@ -15,7 +15,7 @@ export const initialValues = {
     show_in_menu: true,
 }
 
-export const onSubmit = async (values, actions, setForceRender, editId) => {
+export const onSubmit = async (values, actions, setForceRender, editId, setCloseModal) => {
 
     try {
         values = { ...values, is_active: values.is_active ? 1 : 0, show_in_menu: values.show_in_menu ? 1 : 0 }
@@ -24,6 +24,7 @@ export const onSubmit = async (values, actions, setForceRender, editId) => {
             if (res.status == 200) {
                 Alert("ویرایش رکورد", res.data.message, "success");
                 setForceRender((last) => last + 1);
+                setCloseModal(true)
             }
         } else {
             const res = await createNewCategoryService(values)
@@ -31,6 +32,7 @@ export const onSubmit = async (values, actions, setForceRender, editId) => {
                 Alert('ثبت رکورد', res.data.message, 'success');
                 actions.resetForm()
                 setForceRender(last => last + 1)
+                setCloseModal(true)
             }
         }
 

@@ -1,14 +1,19 @@
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
 
-const ModalsContainer = ({children, id, fullScreen, title}) => {
+const ModalsContainer = ({children, id, fullScreen, title, closeModal}) => {
+  const modalRef = useRef()
+  if(closeModal){
+    modalRef.current.classList.remove("show")
+  }
     return createPortal(
         <div
         className="modal fade"
         id={id}
         tabIndex="-1"
         aria-hidden="true"
+        ref={modalRef}
       >
         <div className={`modal-dialog ${fullScreen ? "modal-fullscreen" : ""}`}>
           <div className="modal-content">
