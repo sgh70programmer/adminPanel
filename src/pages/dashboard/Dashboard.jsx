@@ -20,7 +20,7 @@ const Dashboard = () => {
       "اسفند",
     ];
     const datapoints = [0, 20, 20, 60, 60, 120, 180, 120, 125, 105, 110, 170];
-    setDashboardChart(labels, datapoints);
+    setDashboardChart(labels, datapoints) 
   }, []);
 
   return (

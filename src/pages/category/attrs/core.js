@@ -50,7 +50,7 @@ export const validationSchema = Yup.object({
         ),
     unit: Yup.string()
         .required("لطفا این قسمت را پر کنید")
-        .matches(/^[0-9]+$/, "فقط عدد می توانید وارد کنید")
+        .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/, "فقط عدد می توانید وارد کنید")
     ,
     in_filter: Yup.boolean(),
 })

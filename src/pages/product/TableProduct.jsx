@@ -7,6 +7,7 @@ import Actions from "./tableAddition/Actions";
 import { Alert, Confirm } from "../../utils/alerts";
 import { Link } from "react-router-dom";
 import AddButtonLink from "../../components/AddButtonLink";
+import DOMPurify from 'dompurify';
 
 const TableProduct = () => {
   const [data, setData] = useState([]);
@@ -22,6 +23,11 @@ const TableProduct = () => {
       field: null,
       title: "گروه محصول",
       elements: (rowData) => rowData.categories[0]?.title,
+    },
+    {
+      field: null,
+      title: "توضیحات محصول",
+      elements: (rowData) => <span dangerouslySetInnerHTML={{__html:DOMPurify.sanitize( rowData.descriptions)}}></span>,
     },
     { field: "title", title: "عنوان" },
     { field: "price", title: "قیمت" },

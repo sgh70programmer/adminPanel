@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import { createNewProductService } from "../../services/products";
+import { createNewProductService, editProductService } from "../../services/products";
 import { Alert } from "../../utils/alerts";
 
 export const initialValues = {
@@ -20,13 +20,21 @@ export const initialValues = {
   discount: "",
 };
 
-export const onSubmit = async (values, actions) => {
+export const onSubmit = async (values, actions, productToEdit) => {
   console.log(values);
-  const res = await createNewProductService(values);
-  console.log(res);
-  if (res.status === 201) {
-    Alert('انجام شد', res.data.message, 'success')
+  if (productToEdit) {
+    const res = await editProductService(productToEdit.id, values);
+    if (res.status === 200) {
+      Alert('انجام شد', res.data.message, 'success')
+    }
+  } else {
+    const res = await createNewProductService(values);
+    console.log(res);
+    if (res.status === 201) {
+      Alert('انجام شد', res.data.message, 'success')
+    }
   }
+
 };
 
 export const validationSchema = Yup.object({
@@ -42,7 +50,7 @@ export const validationSchema = Yup.object({
   brand_id: Yup.number(),
   color_ids: Yup.string().matches(/^[0-9\s-]+$/, "فقط ازاعداد و خط تیره استفاده شود"),
   guarantee_ids: Yup.string().matches(/^[0-9\s-]+$/, "فقط ازاعداد و خط تیره استفاده شود"),
-  descriptions: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
+  descriptions: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-<>/:.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
   short_descriptions: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
   cart_descriptions: Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
   image: Yup.mixed()
