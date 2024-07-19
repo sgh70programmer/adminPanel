@@ -27,6 +27,8 @@ axios.interceptors.response.use((res) => {
 })
 
 const httpService = (url, method, data, params = null) => {
+    
+   
     const tokenInfo = JSON.parse(localStorage.getItem('loginToken'))
 
     return axios({
@@ -36,7 +38,8 @@ const httpService = (url, method, data, params = null) => {
         params,
         headers: {
             Authorization: tokenInfo ? `Bearer ${tokenInfo.token}` : null,
-            "Content-Type": "application/json"
+            
+            
         }
     })
 }

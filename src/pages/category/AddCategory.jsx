@@ -111,10 +111,11 @@ const Addcategory = ({ setForceRender }) => {
               <div className="row justify-content-center">
                 {parents.length && <FormikControl
                   className="col-md-6 col-lg-8"
-                  control="select"
+                  control="newselect"
                   options={parents}
                   name="parent_id"
                   label="دسته والد"
+                  firstItem="دسته والد را انتخاب کنید..."
                 />}
 
                 <FormikControl

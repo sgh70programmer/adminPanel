@@ -6,6 +6,10 @@ const ModalsContainer = ({children, id, fullScreen, title, closeModal}) => {
   const modalRef = useRef()
   if(closeModal){
     modalRef.current.classList.remove("show")
+    modalRef.current.style.display = "none"
+    modalRef.current.role = null
+    document.body.classList.remove("modal-open")
+    document.body.style=null
   }
     return createPortal(
         <div

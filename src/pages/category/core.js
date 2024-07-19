@@ -16,6 +16,7 @@ export const initialValues = {
 }
 
 export const onSubmit = async (values, actions, setForceRender, editId, setCloseModal) => {
+    console.log(values);
 
     try {
         values = { ...values, is_active: values.is_active ? 1 : 0, show_in_menu: values.show_in_menu ? 1 : 0 }

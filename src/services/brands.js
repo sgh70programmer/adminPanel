@@ -6,7 +6,6 @@ export const getAllBrandsService = () => {
 
 export const addNewBrandService = (data) => {
   if (data.logo) {
-    console.log("data.logo", data.logo);
     let formdata = new FormData();
     formdata.append("original_name", data.original_name);
     formdata.append("persian_name", data.persian_name);
@@ -19,7 +18,6 @@ export const addNewBrandService = (data) => {
 
 export const editBrandService = (brandId, data)=>{
   if (data.logo) {
-    console.log("data.logo", data.logo);
     let formdata = new FormData();
     formdata.append("original_name", data.original_name);
     formdata.append("persian_name", data.persian_name);
