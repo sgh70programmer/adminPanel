@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SpinnerLoad from "./SpinnerLoad";
 
-const PaginatedTable = ({ children, data, dataInfo, additionField, numOfPAge, searchParams, loading }) => {
+const PaginatedTable = ({ children, data, dataInfo, numOfPAge, searchParams, loading }) => {
   const [initData, setIninData] = useState(data);
   const [tableData, setTableData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -54,27 +54,24 @@ const PaginatedTable = ({ children, data, dataInfo, additionField, numOfPAge, se
           data.length ? <table className="table table-responsive text-center table-hover table-bordered">
             <thead className="table-secondary">
               <tr>
-                {dataInfo.map((i) => (
-                  <th key={i.field}>{i.title}</th>
+                {dataInfo.map((i, index) => (
+                  <th key={i.field || `notField__${index}`}>{i.title}</th>
                 ))}
-                {
-                  additionField ? additionField.map((a, index) =>
-                    <th key={a.id + "__" + index}>{a.title}</th>
-                  ) : null
-                }
+
               </tr>
             </thead>
             <tbody>
               {tableData.map((d) => (
-                <tr>
-                  {dataInfo.map((i) => (
-                    <td key={i.field + "_" + d.id}>{d[i.field]}</td>
-                  ))}
-                  {
-                    additionField ? additionField.map((a, index) =>
-                      <td key={a.id + "___" + index}>{a.elements(d)}</td>
-                    ) : null
-                  }
+                <tr key={d.id}>
+                  {dataInfo.map((i, index) =>
+                    i.field ? (
+                      <td key={i.field + "_" + d.id}>{d[i.field]}</td>
+                    ) : (
+                      <td key={d.id + "__" + i.id + "__" + index}>
+                        {i.elements(d)}
+                      </td>
+                    )
+                  )}
                 </tr>
               ))}
             </tbody>

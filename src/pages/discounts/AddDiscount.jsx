@@ -1,73 +1,147 @@
 import React from 'react';
 import ModalsContainer from '../../components/ModalsContainer';
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
+import { Form, Formik } from 'formik';
+import FormikControl from '../../components/form/FormikControl';
+import { initialValues, onSubmit, validationSchema } from './core';
+import SubmitButton from '../../components/form/SubmitButton';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { getAllProductTitlesService } from '../../services/products';
+import { convertDateToJalali } from '../../utils/convertDate';
 
 const AddDiscount = () => {
+    const navigate = useNavigate()
+    const location = useLocation()
+    const [allProducts, setAllProducts] = useState([])
+    const discountToEdit = location.state?.discountToEdit
+    const [selectedProducts, setSelectedProducts] = useState([])
+    const [reInitialValues, setReInitialValues] = useState(null)
+    const { setData } = useOutletContext()
+
+    const handleGetAllProductTitles = async () => {
+        const res = await getAllProductTitlesService();
+        if (res.status === 200) {
+            setAllProducts(res.data.data.map(p => { return { id: p.id, value: p.title } }));
+        }
+    }
+
+    const handleSetProductSelectBox = (formik) => {
+        
+            const idsArr = formik.values.product_ids.split("-").filter(id => id);
+           
+            const selectedProductArr = idsArr.map(id => allProducts.filter(p => p.id == id)[0]).filter(product=>product)
+            
+       
+       
+        
+
+        return (
+            <FormikControl
+                className="animate__animated animate__shakeX"
+                label="برای"
+                control="searchableSelect"
+                options={allProducts}
+                name="product_ids"
+                firstItem="محصول مورد نظر را انتخاب کنبد..."
+                resultType="string"
+                initialItems={selectedProductArr.length > 0 ? selectedProductArr : selectedProducts}
+            />
+        )
+    }
+
+    useEffect(() => {
+        handleGetAllProductTitles()
+        
+            if (discountToEdit) {
+                console.log("discountToEdit", discountToEdit);
+                // setSelectedProducts(discountToEdit.products.map(p =>  ({ id: p.id, value: p.title }) ))
+                const productIds = discountToEdit.products.map(p => p.id).join("-");
+                console.log("productIds", productIds);
+                setReInitialValues({
+                    ...discountToEdit,
+                    expire_at: convertDateToJalali(discountToEdit.expire_at, 'jD / jM / jYYYY'),
+                    for_all: discountToEdit.for_all ? true : false,
+                    product_ids: productIds
+                })
+            }
+       
+    }, [])
+
     return (
-        <>
-            <button className="btn btn-success d-flex justify-content-center align-items-center" data-bs-toggle="modal" data-bs-target="#add_discount_modal">
-                <i className="fas fa-plus text-light"></i>
-            </button>
+        <ModalsContainer
+            className="show d-block"
+            id={"add_discount_modal"}
+            title={"افزودن کد تخفیف"}
+            fullScreen={false}
+            closeFunction={() => navigate(-1)}
+        >
+            <div className="container">
+                <div className="row justify-content-center">
 
-            <ModalsContainer
-                id={"add_discount_modal"}
-                title={"افزودن کد تخفیف"}
-                fullScreen={true}
-            >
-                <div className="container">
-                    <div className="row justify-content-center">
-                        <div className="col-12 col-md-6 col-lg-8">
-                            <div className="input-group my-3 dir_ltr">
-                                <input type="text" className="form-control" placeholder="کیبرد را در حالت فارسی قرار دهید" />
-                                <span className="input-group-text w_8rem justify-content-center">عنوان کد</span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 col-lg-8">
-                            <div className="input-group my-3 dir_ltr">
-                                <input type="text" className="form-control" placeholder="کیبرد را در حالت لاتین قرار دهید" />
-                                <span className="input-group-text w_8rem justify-content-center">کد تخفیف</span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 col-lg-8">
-                            <div className="input-group my-3 dir_ltr">
-                                <input type="number" className="form-control" placeholder="فقط عدد " />
-                                <span className="input-group-text w_8rem justify-content-center">درصد تخفیف </span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 col-lg-8">
-                            <div className="input-group my-3 dir_ltr">
-                                <input type="text" className="form-control" placeholder="مثلا 1400/10/10 " />
-                                <span className="input-group-text w_8rem justify-content-center">تاریخ اعتبار </span>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6 col-lg-8 col-md-6 col-lg-8">
-                            <div className="input-group my-3 dir_ltr">
-                                <input type="text" className="form-control" placeholder="قسمتی از نام محصول را وارد کنید" list="brandLists" />
-                                <span className="input-group-text w_8rem justify-content-center">برای</span>
-                                <datalist id="brandLists">
-                                    <option value="محصول شماره 1" />
-                                    <option value="محصول شماره 2" />
-                                    <option value="محصول شماره 3" />
-                                </datalist>
-                            </div>
-                            <div className="col-12 col-md-6 col-lg-8">
-                                <span className="chips_elem">
-                                    <i className="fas fa-times text-danger"></i>
-                                    محصول 1
-                                </span>
-                                <span className="chips_elem">
-                                    <i className="fas fa-times text-danger"></i>
-                                    محصول 2
-                                </span>
-                            </div>
-                        </div>
-                        <div className="btn_box text-center col-12 col-md-6 col-lg-8 mt-4">
-                            <button className="btn btn-primary ">ذخیره</button>
-                        </div>
-                    </div>
+                    <Formik
+                        initialValues={reInitialValues || initialValues}
+                        onSubmit={(values, actions) => onSubmit(values, actions, setData, discountToEdit)}
+                        validationSchema={validationSchema}
+                        enableReinitialize
+                    >
+                        {formik => {
+                            
+                            return (
+                                <Form>
+                                    <FormikControl
+                                        control="input"
+                                        type="text"
+                                        name="title"
+                                        label="عنوان تخفیف"
+                                        placeholder="فقط از حروف فارسی و لاتین استفاده کنید"
+                                    />
+                                    <FormikControl
+                                        control="input"
+                                        type="text"
+                                        name="code"
+                                        label="کد تخفیف"
+                                        placeholder="فقط از حروف لاتین و اعداد استفاده کنید"
+                                    />
+                                    <FormikControl
+                                        control="input"
+                                        type="number"
+                                        name="percent"
+                                        label="درصد تخفیف"
+                                        placeholder="فقط از اعداد استفاده کنید"
+                                    />
+                                    <FormikControl
+                                        control="date"
+                                        formik={formik}
+                                        name="expire_at"
+                                        label="تاریخ انقضاء"
+                                        initialDate={discountToEdit?.expire_at || undefined }
+                                        yearsLimit={{ from: 10, to: 10 }}
+                                    />
+                                    <div className="row mb-2">
+                                        <div className="col-12 col-md-4">
+                                            <FormikControl
+                                                control="switch"
+                                                name="for_all"
+                                                label="برای همه"
+                                            />
+                                        </div>
+                                    </div>
+                                    {
+                                        !formik.values.for_all ?  handleSetProductSelectBox(formik) : null
+                                    }
+                                    <div className="btn_box text-center col-12 mt-4">
+                                        <SubmitButton />
+                                    </div>
+                                </Form>
+                            )
+                        }}
+                    </Formik>
+
                 </div>
+            </div>
 
-            </ModalsContainer>
-        </>
+        </ModalsContainer>
     );
 }
 
