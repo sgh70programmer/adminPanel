@@ -69,11 +69,11 @@ a {
     opacity: 0.5;
 }
 
-.font_1_5{
+.font_1_5 {
     font-size: 1.5rem;
 }
 
-.font_1_2{
+.font_1_2 {
     font-size: 1.2rem;
 }
 
@@ -138,7 +138,7 @@ a {
     box-shadow: 0 0 3px black;
 }
 
-.error_message{
+.error_message {
     margin-top: -8px;
 }
 
@@ -470,16 +470,17 @@ li {
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#0061FF", endColorstr="#60EFFF", GradientType=1);
 }
 
-.main_image{
+.main_image {
     border-bottom: 3px solid green !important;
 }
 
-.add_image_gallery, .image_gallery{
+.add_image_gallery,
+.image_gallery {
     width: 200px;
     height: 200px;
 }
 
-.image_action_container{
+.image_action_container {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -494,12 +495,12 @@ li {
     align-items: center;
 }
 
-.image_gallery:hover .image_action_container{
+.image_gallery:hover .image_action_container {
     transform: scale(1);
     opacity: 1;
 }
 
-.opacity_0{
+.opacity_0 {
     opacity: 0 !important;
 }
 
@@ -515,9 +516,9 @@ li {
     border-radius: 3px;
     border: 1px solid #e2e3e5;
     padding-right: 18px;
-  }
-  
-  .form_date_picker .datePicker {
+}
+
+.form_date_picker .datePicker {
     position: absolute;
     top: 0;
     height: 41px;
@@ -525,12 +526,15 @@ li {
     border-radius: 3px;
     z-index: 1;
     border: 1px solid #e2e3e5;
-  }  
+}
 
-  .back_smoke{
+.back_smoke {
     background-color: rgba(0, 0, 0, 0.459) !important;
-  }
+}
 
+.swal-footer {
+    text-align: center;
+}
 
 /* content end-------<<<<<<< */
 

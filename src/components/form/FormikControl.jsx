@@ -1,4 +1,5 @@
 import React from 'react';
+import Checkbox from './Checkbox';
 import File from './File';
 import Input from './Input';
 import Select from './Select';
@@ -32,6 +33,8 @@ const FormikControl = (props) => {
             return <Ckeditor {...props} />
         case 'date':
             return <Date {...props} />
+        case 'checkbox':
+            return <Checkbox {...props} />
         default:
             return null
     }

@@ -9,7 +9,7 @@ axios.interceptors.response.use((res) => {
         if (typeof(res.data) == 'object') {
             let message = ""
             for (const key in res.data) {
-                message = message + `${key} : ${res.data[key]}`
+                message = message + ` ${res.data[key]}`
             }
             res.data.message = message
         }
@@ -18,9 +18,9 @@ axios.interceptors.response.use((res) => {
     return res
 }, (err) => {
     if (err.config.url != "https://ecomadminapi.azhadev.ir/api/auth/logout") {
-        console.log("logout");
+        
 
-        Alert("مشکل...!", "مشکلی رخ داده است", "error");
+        Alert(err.response.status, err.response.data?.message || "مشکلی رخ داده است", "error");
         return Promise.reject(err)
 
     }

@@ -23,6 +23,8 @@ import AddProduct from './product/AddProduct';
 import SetAttribute from './product/setAttr/SetAttribute';
 import ProductGallery from './product/gallery/ProductGallery';
 import AddDiscount from './discounts/AddDiscount';
+import AddRole from './roles/AddRole';
+import AddUser from './users/AddUser';
 
 const Content = () => {
   const { showSidebar } = useContext(AdminContext)
@@ -49,8 +51,12 @@ const Content = () => {
         <Route path='/carts' element={<Carts />} />
         <Route path='/orders' element={<Orders />} />
         <Route path='/deliveries' element={<Deliveries />} />
-        <Route path='/users' element={<Users />} />
-        <Route path='/roles' element={<Roles />} />
+        <Route path='/users' element={<Users />}>
+          <Route path='add-user' element={<AddUser />} />
+        </Route>
+        <Route path='/roles' element={<Roles />}>
+          <Route path='add-role' element={<AddRole />} />
+        </Route>
         <Route path='/permissions' element={<Permissions />} />
         <Route path='/questions' element={<Questions />} />
         <Route path='/comments' element={<Comments />} />

@@ -28,7 +28,9 @@ const AddDiscount = () => {
 
     const handleSetProductSelectBox = (formik) => {
         
+        
             const idsArr = formik.values.product_ids.split("-").filter(id => id);
+            
            
             const selectedProductArr = idsArr.map(id => allProducts.filter(p => p.id == id)[0]).filter(product=>product)
             
@@ -51,13 +53,13 @@ const AddDiscount = () => {
     }
 
     useEffect(() => {
+       
         handleGetAllProductTitles()
-        
             if (discountToEdit) {
-                console.log("discountToEdit", discountToEdit);
+                
                 // setSelectedProducts(discountToEdit.products.map(p =>  ({ id: p.id, value: p.title }) ))
                 const productIds = discountToEdit.products.map(p => p.id).join("-");
-                console.log("productIds", productIds);
+               
                 setReInitialValues({
                     ...discountToEdit,
                     expire_at: convertDateToJalali(discountToEdit.expire_at, 'jD / jM / jYYYY'),
