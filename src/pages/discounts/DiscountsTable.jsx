@@ -1,10 +1,10 @@
 
 import React, { useEffect, useState } from 'react';
-import {Outlet} from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import AddButtonLink from '../../components/AddButtonLink';
 import PaginatedTable from '../../components/PaginatedTable';
 import { deleteDiscountService, getAllDiscountsService } from '../../services/discounts';
-import {convertDateToJalali} from '../../utils/convertDate';
+import { convertDateToJalali } from '../../utils/convertDate';
 import Actions from './tableAddition/Actions';
 import { Alert, Confirm } from '../../utils/alerts';
 
@@ -21,7 +21,7 @@ const DiscounTstable = () => {
     {
       field: null,
       title: "تاریخ انقضا",
-      elements: (rowData) => convertDateToJalali(rowData.expire_at) ,
+      elements: (rowData) => convertDateToJalali(rowData.expire_at),
     },
     {
       field: null,
@@ -36,7 +36,7 @@ const DiscounTstable = () => {
     {
       field: null,
       title: "عملیات",
-      elements: (rowData) => <Actions rowData={rowData} handleDeleteDiscount={handleDeleteDiscount}/>,
+      elements: (rowData) => <Actions rowData={rowData} handleDeleteDiscount={handleDeleteDiscount} />,
     },
   ];
 
@@ -46,40 +46,46 @@ const DiscounTstable = () => {
     searchField: "title",
   };
 
-  const handleGetAllDiscounts = async ()=>{
+  const handleGetAllDiscounts = async () => {
     setLoading(true)
     const res = await getAllDiscountsService();
     setLoading(false)
     if (res.status === 200) {
-        setData(res.data.data);
+      setData(res.data.data);
     }
   }
 
-  const handleDeleteDiscount = async (discount)=>{
+  const handleDeleteDiscount = async (discount) => {
     if (await Confirm(discount.title, 'آیا از حذف این کد تخفیف اطمینان دارید؟')) {
-      const res = await deleteDiscountService(discount.id)
-      if (res.status === 200) {
-        Alert('حذف شد...!', res.data.message, 'success');
-        setData(old=> old.filter(d => d.id != discount.id))
+      try {
+        const res = await deleteDiscountService(discount.id)
+        if (res.status === 200) {
+          Alert('حذف شد...!', res.data.message, 'success');
+          setData(old => old.filter(d => d.id != discount.id))
+        }
+
+      } catch {
+
       }
+
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     handleGetAllDiscounts()
-  },[])
-    return (
-      <PaginatedTable
-        data={data}
-        dataInfo={dataInfo}
-        numOfPAge={8}
-        searchParams={searchParams}
-        loading={loading}
-      >
-        <AddButtonLink href={"/discounts/add-discount-code"} />
-        <Outlet context={{setData}} />
-      </PaginatedTable>
-    );
+  }, [])
+  return (
+    <PaginatedTable
+      data={data}
+      dataInfo={dataInfo}
+      numOfPAge={8}
+      searchParams={searchParams}
+      loading={loading}
+    >
+      <AddButtonLink href={"/discounts/add-discount-code"} />
+      <Outlet context={{ setData }} />
+    </PaginatedTable>
+  );
 }
 
 export default DiscounTstable;

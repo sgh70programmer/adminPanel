@@ -63,4 +63,5 @@ export const validationSchema = Yup.object().shape({
     birth_date : Yup.string().matches(/^[0-9/\ \s-]+$/,"فقط ازاعداد و خط تیره استفاده شود"),
     gender : Yup.number(),
     roles_id : Yup.array().min(1, "حد اقل یک مورد انتخاب کنید"),
+
 })

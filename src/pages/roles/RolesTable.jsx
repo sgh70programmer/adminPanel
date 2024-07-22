@@ -41,11 +41,17 @@ const RolesTable = () => {
   
     const handleDeleteRole = async (role) => {
       if(await Confirm(role.title, 'آیا از حذف این نقش اطمینان دارید؟')){
-        const res = await deleteRoleService(role.id)
-        if(res.status == 200){
-          Alert('انجام شد', res.data.message, 'success')
-          setData(oldData => oldData.filter(data => data.id != role.id))
+        try{
+          const res = await deleteRoleService(role.id)
+          if(res.status == 200){
+            Alert('انجام شد', res.data.message, 'success')
+            setData(oldData => oldData.filter(data => data.id != role.id))
+          }
+
+        }catch{
+
         }
+       
       }
     };
   

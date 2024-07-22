@@ -27,7 +27,7 @@ const TableProduct = () => {
     {
       field: null,
       title: "توضیحات محصول",
-      elements: (rowData) => <span dangerouslySetInnerHTML={{__html:DOMPurify.sanitize( rowData.descriptions)}}></span>,
+      elements: (rowData) => <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(rowData.descriptions) }}></span>,
     },
     { field: "title", title: "عنوان" },
     { field: "price", title: "قیمت" },
@@ -61,13 +61,18 @@ const TableProduct = () => {
 
   const handleDeleteProduct = async (product) => {
     if (await Confirm("حذف محصول", `آیا از حذف ${product.title} اطمینان دارید؟`)) {
-      const res = await deleteProductService(product.id);
-      if (res.status === 200) {
-        Alert("انجام شد", res.data.message, "success");
-        handleGetProducts(currentPage, countOnPage, searchChar)
-        // setData((lastData) => lastData.filter((d) => d.id != product.id));
-        // setCurrentPage(1)
+      try {
+        const res = await deleteProductService(product.id);
+        if (res.status === 200) {
+          Alert("انجام شد", res.data.message, "success");
+          handleGetProducts(currentPage, countOnPage, searchChar)
+
+        }
+
+      } catch {
+
       }
+
     }
   }
 
@@ -86,7 +91,7 @@ const TableProduct = () => {
       pageCount={pageCount}
       handleSearch={handleSearch}
     >
-      <AddButtonLink href={"/products/add-product"}/>
+      <AddButtonLink href={"/products/add-product"} />
     </PaginatedDataTable>
   );
 };

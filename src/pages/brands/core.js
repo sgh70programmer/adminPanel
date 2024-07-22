@@ -10,7 +10,7 @@ export const initialValues = {
 };
 
 export const onSubmit = async (values, actions, setData, brandToEdit, setCloseModal) => {
-  console.log("values", values);
+ 
   if (brandToEdit) {
     const res = await editBrandService(brandToEdit.id, values)
     if (res.status === 200) {
@@ -26,7 +26,7 @@ export const onSubmit = async (values, actions, setData, brandToEdit, setCloseMo
 
   } else {
     const res = await addNewBrandService(values);
-    console.log(res);
+  
     if (res.status === 201) {
       Alert('انجام شد', res.data.message, 'success');
       setData(lastData => [...lastData, res.data.data])

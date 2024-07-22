@@ -18,13 +18,13 @@ const Brandstable = () => {
     { field: "persian_name", title: "عنوان فارسی" },
     { field: "descriptions", title: "توضیحات" },
     {
-      field:null,
+      field: null,
       title: "لوگو",
       elements: (rowData) =>
-        rowData.logo ? <img src={apiPath+"/"+rowData.logo} width="40" /> : null,
+        rowData.logo ? <img src={apiPath + "/" + rowData.logo} width="40" /> : null,
     },
     {
-      field:null,
+      field: null,
       title: "عملیات",
       elements: (rowData) => <Actions rowData={rowData} setBrandToEdit={setBrandToEdit} handleDeleteBrand={handleDeleteBrand} />,
     },
@@ -37,29 +37,35 @@ const Brandstable = () => {
     searchField: "original_name",
   };
 
-  const handleGetAllBrands = async ()=>{
+  const handleGetAllBrands = async () => {
     setLoading(true)
     const res = await getAllBrandsService();
     console.log(res);
     res && setLoading(false)
     if (res.status === 200) {
-        setData(res.data.data);
+      setData(res.data.data);
     }
   }
 
   const handleDeleteBrand = async (brand) => {
-    if (await Confirm("حذف برند",`آیا از حذف ${brand.original_name} اطمینان دارید؟`)) {
-      const res = await deleteBrandService(brand.id);
-      if (res.status === 200) {
-        Alert("انجام شد", res.data.message, "success");
-        setData((lastData) => lastData.filter((d) => d.id != brand.id));
+    try {
+      if (await Confirm("حذف برند", `آیا از حذف ${brand.original_name} اطمینان دارید؟`)) {
+        const res = await deleteBrandService(brand.id);
+        if (res.status === 200) {
+          Alert("انجام شد", res.data.message, "success");
+          setData((lastData) => lastData.filter((d) => d.id != brand.id));
+        }
       }
+
+    } catch {
+
     }
+
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     handleGetAllBrands()
-  },[])
+  }, [])
 
   return (
     <>
@@ -70,7 +76,7 @@ const Brandstable = () => {
         searchParams={searchParams}
         loading={loading}
       >
-        <AddBrands setData={setData} brandToEdit={brandToEdit}  setBrandToEdit={setBrandToEdit}/>
+        <AddBrands setData={setData} brandToEdit={brandToEdit} setBrandToEdit={setBrandToEdit} />
       </PaginatedTable>
     </>
   );

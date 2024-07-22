@@ -46,12 +46,18 @@ const ColorsTable = () => {
     }
   
     const handleDeleteColor = async (color) => {
-      if (await Confirm("حذف برند",`آیا از حذف ${color.title} اطمینان دارید؟`)) {
-        const res = await deleteColorService(color.id);
-        if (res.status === 200) {
-          Alert("انجام شد", res.data.message, "success");
-          setData((lastData) => lastData.filter((d) => d.id != color.id));
+      if (await Confirm("حذف رنگ",`آیا از حذف ${color.title} اطمینان دارید؟`)) {
+        try{
+          const res = await deleteColorService(color.id);
+          if (res.status === 200) {
+            Alert("انجام شد", res.data.message, "success");
+            setData((lastData) => lastData.filter((d) => d.id != color.id));
+          }
+
+        }catch{
+
         }
+   
       }
     };
   
