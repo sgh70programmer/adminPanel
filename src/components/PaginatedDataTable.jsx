@@ -14,6 +14,7 @@ const PaginatedDataTable = ({
 
     const pageRange = 3
     const [pages, setPages] = useState([]);
+   
 
     let timeout;
 
@@ -26,8 +27,10 @@ const PaginatedDataTable = ({
     }
 
     useEffect(() => {
+       
         let pArr = [];
-        for (let i = 1; i <= pageCount; i++) pArr.push(i);
+        for (let i = 1; i <= pageCount; i++) pArr.push(i)
+       
         setPages(pArr);
     }, [pageCount])
 

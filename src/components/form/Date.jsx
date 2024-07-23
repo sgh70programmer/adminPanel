@@ -18,7 +18,7 @@ const months = [
     {id: 12 , value: "اسفند"},
 ]
 
-const Date = ({formik,name,label, initialDate, yearsLimit, className}) => {
+const Date = ({formik,name,label, initialDate, yearsLimit, className, placeholder}) => {
 
     const [day , setDay] = useState();
     const [month , setMonth] = useState();
@@ -57,8 +57,8 @@ const Date = ({formik,name,label, initialDate, yearsLimit, className}) => {
         <div className={`validate-input form_date_picker ${className}`} >
 
             <div className="input-group mb-3 dir_ltr pointer" onClick={handleShowDateConfig} >
-                <FastField type="text" name={name} className="form-control pointer" placeholder={'جهت انتخاب تاریخ کلیک کنید'} aria-disabled="true"/>
-                <span className="input-group-text w_6rem justify-content-center"> {label} </span>
+                <FastField type="text" name={name} className="form-control pointer" placeholder={placeholder || 'جهت انتخاب تاریخ کلیک کنید'} aria-disabled="true"/>
+                {label && <span className="input-group-text w_6rem justify-content-center"> {label} </span>}
             </div>
             
             {

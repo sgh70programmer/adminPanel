@@ -5,20 +5,11 @@ import AdminContextContainer, { AdminContext } from '../../context/adminLayoutCo
 import { Navigate } from "react-router-dom";
 import Content from '../../pages/Content';
 import useIsLogin from '../../hook/authHook';
-import { useDispatch, useSelector } from 'react-redux';
-import { getRolesActionRedux, sendRolesRequest } from '../../redux/user/userActions';
+
 
 export default function Index() {
     const [loading, isLogin] =useIsLogin()
-    const {data, error} = useSelector(state => state.userReducer)
-    const dispatch = useDispatch()
-    // dispatch(getRolesActionRedux())
     
-    // dispatch(sendRolesRequest())
-    // useEffect(() =>{
-    //     dispatch(getRolesActionRedux())
-    // }, [])
-  
 
     return (
         <AdminContextContainer>

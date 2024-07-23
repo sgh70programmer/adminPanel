@@ -12,7 +12,7 @@ const Select = ({options, name, label, className, firstItem}) => {
                         <option key={o.id} value={o.id}> {o.value} </option>
                     ))}
                 </FastField>
-                <span className="input-group-text w_6rem justify-content-center">{label}</span>
+               {label && <span className="input-group-text w_6rem justify-content-center"> {label} </span>}
             </div>
             <ErrorMessage name={name} component={FormikError}/>
         </div>
