@@ -34,7 +34,6 @@ const AddOrder = () => {
         const res = await getSinglrCartService(cartId);
        
         if (res.status === 200) {
-            console.log(res);
             let products = []
             const cart = res.data.data
             if(cart?.is_ordered) {
@@ -77,7 +76,6 @@ const AddOrder = () => {
             })
             let products = []
             const cart = order.cart
-            console.log(order);
             for (const item of cart.items) {
                 products.push({
                     id: item.id,

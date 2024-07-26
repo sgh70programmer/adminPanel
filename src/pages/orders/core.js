@@ -18,7 +18,7 @@ export const initialValues = {
 export const onSubmit = async (values, actions, navigate, handleGetOrders) => {
     values = {
         ...values,
-        pay_at: convertFormDateToMiladi(values.pay_at)
+        pay_at:values.pay_at ? convertFormDateToMiladi(values.pay_at): null
     }
     const res = await addNewOrderService(values);
     if (res.status === 201) {

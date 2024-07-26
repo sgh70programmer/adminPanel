@@ -16,7 +16,6 @@ import { useLocation } from "react-router-dom";
 const AddProduct = () => {
   const location = useLocation()
   const productToEdit = location.state?.productToEdit
-  console.log("productToEdit", productToEdit);
   const [reInitialValues, setReInitialValues] = useState(null)
   const [parentCategories, setparentCategories] = useState([]);
   const [mainCategories, setMainCategories] = useState([]);

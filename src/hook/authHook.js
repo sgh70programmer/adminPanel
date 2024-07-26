@@ -16,7 +16,6 @@ export default function useIsLogin() {
             setIsLogin(res.status == 200 ? true : false)
             setLoading(false)
             const user = res.data
-            console.log("user", user);
             user.full_name = `${user.first_name || ""} ${user.last_name || ""}`.trim()
             dispatch(receiveUserResponse(user))
 

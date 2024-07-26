@@ -68,7 +68,6 @@ const AddRole = () => {
                 enableReinitialize
                 >
                     {(formik) =>{
-                        {console.log("formik", formik);}
                         return ( <Form className="row justify-content-center">
                             {editType !== "permissions" ? (
                                 <>

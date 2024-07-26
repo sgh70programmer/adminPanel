@@ -40,7 +40,6 @@ const Brandstable = () => {
   const handleGetAllBrands = async () => {
     setLoading(true)
     const res = await getAllBrandsService();
-    console.log(res);
     res && setLoading(false)
     if (res.status === 200) {
       setData(res.data.data);

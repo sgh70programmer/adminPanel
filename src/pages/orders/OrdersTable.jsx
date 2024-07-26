@@ -33,7 +33,7 @@ const OrdersTable = () =>  {
       {
         field: null,
         title: "تاریخ پرداخت",
-        elements: (rowData) => convertDateToJalali(rowData.pay_at)
+        elements: (rowData) => rowData.pay_at ? convertDateToJalali(rowData.pay_at): ""
       },
       {
         field: null,
@@ -55,7 +55,6 @@ const OrdersTable = () =>  {
     const handleGetOrders = async (page=currentPage, count=countOnPage, char=searchChar)=>{
       setLoading(true)
       const res = await getAllPaginatedOrdersService(page, count, char)
-      console.log("res", res);
       setLoading(false)
       if (res.status === 200) {
         setData(res.data.data.data)

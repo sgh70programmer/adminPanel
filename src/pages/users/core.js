@@ -18,14 +18,12 @@ export const initialValues = {
 };
 
 export const onSubmit = async (values, actions,  setData, userId) => {
-    console.log(values);
     values = {
         ...values,
         birth_date: values.birth_date ? convertFormDateToMiladi(values.birth_date) : null
     }
     if (userId) {
         const res = await editUserService(userId, values)
-        console.log("res", res);
         if (res.status == 200) {
             Alert('انجام شد', res.data.message, 'success')
             setData(lastData=>{

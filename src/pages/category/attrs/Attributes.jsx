@@ -44,12 +44,11 @@ const Attributes = () => {
     setLoading(true)
     try {
       const res = await getCategoryAttrsService(location.state.categoryData.id)
-      console.log(res);
       if (res.status === 200) {
         setData(res.data.data);
       }
     } catch (error) {
-      console.log(error.message);
+      
     } finally {
       setLoading(false)
     }
@@ -64,7 +63,7 @@ const Attributes = () => {
           setData(lastData => [...lastData].filter(d => d.id != attr.id))
         }
       } catch (error) {
-        console.log(error.message);
+        
       }
     }
   }

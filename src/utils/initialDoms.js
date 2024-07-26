@@ -4,7 +4,6 @@ export default function toggleSidebar() {
         document
             .getElementById("handle_toggle_sidemenu")
             .addEventListener("change", function () {
-                console.log(this);
                 if (this.checked) {
                     document.querySelector(".mini_sidebar").classList.add("expanded");
                     document

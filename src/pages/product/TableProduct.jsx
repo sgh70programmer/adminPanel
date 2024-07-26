@@ -46,7 +46,6 @@ const TableProduct = () => {
   const handleGetProducts = async (page, count, char) => {
     setLoading(true)
     const res = await getProductsService(page, count, char)
-    console.log("res", res);
     res && setLoading(false)
     if (res.status === 200) {
       setData(res.data.data)

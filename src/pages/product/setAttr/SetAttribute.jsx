@@ -21,7 +21,6 @@ const SetAttribute = () => {
     const [validationSchema, setValidationSchema] = useState({})
 
     const handleGetAttributes = async () => {
-        console.log("selectedProduct", selectedProduct);
         const { attrsVar, initials, rules } = await initializingData(selectedProduct)
         setAttrs(attrsVar)
         setInitialValues(initials)

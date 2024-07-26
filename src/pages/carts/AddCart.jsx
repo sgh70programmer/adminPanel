@@ -26,7 +26,6 @@ const AddCart = () => {
     const [isSubmitting, setIsSubmitting] = useState(false)
 
 
-    console.log("selectedProductsInfo", selectedProductsInfo);
 
 
 
@@ -40,7 +39,6 @@ const AddCart = () => {
     const handleChangeSelectedProduct = async (e, formik) => {
         formik.setFieldValue('product_id', e)
         const res = await getOneProductService(e)
-        console.log("res", res);
         if (res.status === 200) {
             const product = res.data.data
             setCurrentProduct(product)
@@ -82,7 +80,6 @@ const AddCart = () => {
 
     const handleDeleteProduct = (id) => {
         const index = selectedProductsInfo.findIndex(p => p.id == id)
-        console.log("index", index);
         setSelectedProductsInfo(old => old.filter(o => o.id != id))
     }
 
@@ -91,7 +88,6 @@ const AddCart = () => {
         if (res.status === 200) {
             let products = []
             const cart = res.data.data
-            console.log("cart", cart);
             setReInitialValues({ ...initialValues, user_id: cart.user_id })
             for (const item of cart.items) {
                 products.push({

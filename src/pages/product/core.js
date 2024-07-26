@@ -21,7 +21,6 @@ export const initialValues = {
 };
 
 export const onSubmit = async (values, actions, productToEdit) => {
-  console.log(values);
   if (productToEdit) {
     const res = await editProductService(productToEdit.id, values);
     if (res.status === 200) {
@@ -29,7 +28,6 @@ export const onSubmit = async (values, actions, productToEdit) => {
     }
   } else {
     const res = await createNewProductService(values);
-    console.log(res);
     if (res.status === 201) {
       Alert('انجام شد', res.data.message, 'success')
     }

@@ -45,7 +45,6 @@ const CartsTable = () =>  {
     };
   
     const handleGetCarts = async (page=currentPage, count=countOnPage, char=searchChar)=>{
-      console.log("page", page);
       setLoading(true)
       const res = await getAllPaginatedCartsService(page, count, char)
       setLoading(false)

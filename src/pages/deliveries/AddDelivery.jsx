@@ -10,7 +10,6 @@ const AddDelivery = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const deliveryToEdit = location.state?.deliveryToEdit
-    console.log("deliveryToEdit", deliveryToEdit);
     const [reInitialValues, setReInitialValues]=useState(null)
     const {setData} = useOutletContext()
 

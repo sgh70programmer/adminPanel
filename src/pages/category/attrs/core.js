@@ -37,7 +37,6 @@ export const onSubmit = async (values, actions, catId, setData, attrToEdit, setA
         }
 
     } catch (error) {
-        console.log(error.message);
     }
 }
 

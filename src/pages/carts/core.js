@@ -9,7 +9,7 @@ export const initialValues = {
 };
 
 export const onSubmit = async (values, actions, setSelectedProductsInfo, currentProduct) => {
-    console.log("values", values);
+    
     
     actions.resetForm()
     actions.setFieldValue('user_id', values.user_id)

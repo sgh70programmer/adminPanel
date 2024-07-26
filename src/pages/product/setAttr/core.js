@@ -10,9 +10,7 @@ export const initializingData = async (selectedProduct) => {
   let rules = {}
   const promise =await Promise.all(
     selectedProduct.categories.map(async (cat) => {
-      console.log("selectedProduct.attributes ", selectedProduct.attributes );
       const res = await getCategoryAttrsService(cat.id)
-      console.log("res.data.data ", res.data.data );
       
       if (res.status === 200) {
         attrsVar = [...attrsVar, { groupTitle: cat.title, data: res.data.data }]

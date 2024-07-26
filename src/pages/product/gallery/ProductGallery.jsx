@@ -9,7 +9,6 @@ import { Alert, Confirm } from "../../../utils/alerts";
 import SpinnerLoad from "../../../components/SpinnerLoad";
 const ProductGallery = () => {
     const location = useLocation()
-    console.log("location", location);
     const { selectedProduct } = location.state
     const [gallery, setGallery] = useState(selectedProduct.gallery)
     const [error, setError] = useState(null)
@@ -26,7 +25,6 @@ const ProductGallery = () => {
         if (image.size > 512000) return setError("حجم تصویر نباید بیشتر از 500 کیلوبایت باشد")
         setLoading(true)
         const res = await addProductImage(selectedProduct.id, formdata)
-        console.log(res);
         setLoading(false)
         if (res.status === 201) {
             Alert('انجام شد', res.data.message, 'success');

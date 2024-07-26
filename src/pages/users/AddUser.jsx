@@ -79,7 +79,6 @@ const AddUser = () => {
                 >
                     {
                         formik => {
-                            console.log("formik", formik);
                             return (
                                 <Form className="row justify-content-center">
                                     <div className="row justify-content-center">

@@ -38,7 +38,6 @@ const Addcategory = ({ setForceRender }) => {
   const handleGetSingleCategory = async () => {
     try {
       const res = await getSingleCategoryService(editId);
-      console.log(res);
       if (res.status == 200) {
         const oldCategory = res.data.data;
         setEditCategory(oldCategory);

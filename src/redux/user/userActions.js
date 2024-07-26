@@ -22,14 +22,3 @@ export const receiveUserError = (error)=>{
 }
 
 
-// export const getRolesActionRedux = ()=>{
-//     return (dispatch, state)=>{
-//         dispatch(sendRolesRequest())
-//         getUserService().then(res=>{
-//             console.log(res.data.roles);
-//             dispatch(receiveRolesResponse(res.data.roles));
-//         }).catch(error=>{
-//             dispatch(receiveRolesError(error.message))
-//         })
-//     }
-// }

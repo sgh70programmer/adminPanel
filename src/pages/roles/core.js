@@ -12,7 +12,6 @@ export const initialValues = {
 };
 
 export const onSubmit = async (values, actions, setData, roleIdToEdit, editType) => {
-    console.log("values", values);
     if (editType == "role") {
         const res = await editRoleService(roleIdToEdit, values)
         if (res.status === 200) {

@@ -10,7 +10,6 @@ const Checkbox = (props) => {
             <ErrorMessage name={name}component={FormikError} />
             <Field className="form-control" id={name} name={name}>
                 {({field})=>{
-                    console.log("field", field);
                     return options.map(o=>(
                         <div className="d-inline-block col-md-6 col-xl-4 pb-1" key={o.id}>
                             <input 

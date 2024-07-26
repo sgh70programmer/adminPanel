@@ -23,8 +23,6 @@ const onSubmit = async (values, submitMethods, navigate) => {
         submitMethods.setSubmitting(false)
 
     } catch (error){
-        console.log("error", error);
-        // Alert("مشکل...!", "مشکلی رخ داده است", "error");
         submitMethods.setSubmitting(false)
         
     }

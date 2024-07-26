@@ -36,7 +36,6 @@ const DeliveriesTable = () => {
     const handleGetAllDeliveries = async ()=>{
       setLoading(true)
       const res = await getAllDeliveriesService();
-      console.log(res);
       setLoading(false)
       if (res.status === 200) setData(res.data.data);
     }
