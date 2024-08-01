@@ -1,11 +1,11 @@
-import React , {useState, useEffect} from 'react';
-import ModalsContainer from '../../components/ModalsContainer';
-import { Form, Formik } from 'formik';
+import React , {useState, useEffect} from 'react'
+import ModalsContainer from '../../components/ModalsContainer'
+import { Form, Formik } from 'formik'
 import {useNavigate, useLocation, useOutletContext} from 'react-router-dom'
-import SubmitButton from '../../components/form/SubmitButton';
-import FormikControl from '../../components/form/FormikControl';
-import { initialValues, onSubmit, validationSchema } from './core';
-import { getAllPermissionsService, getSinglrRoleService } from '../../services/users';
+import SubmitButton from '../../components/form/SubmitButton'
+import FormikControl from '../../components/form/FormikControl'
+import { initialValues, onSubmit, validationSchema } from './core'
+import { getAllPermissionsService, getSinglrRoleService } from '../../services/users'
 
 const AddRole = () => {
     const {setData} = useOutletContext()
@@ -16,7 +16,7 @@ const AddRole = () => {
    
 
     const [permissions, setPermissions] = useState([])
-    const [roleToEdit, setRoleToEdit]=useState(null);
+    const [roleToEdit, setRoleToEdit]=useState(null)
     const [reInitialValues, setReInitialValues] = useState(null)
 
 
@@ -29,7 +29,7 @@ const AddRole = () => {
     }
 
     const handleGetRoleToEditData = async ()=>{
-        const res = await getSinglrRoleService(roleIdToEdit);
+        const res = await getSinglrRoleService(roleIdToEdit)
         if (res.status === 200) {
             const role = res.data.data
             setRoleToEdit(role)
@@ -45,18 +45,18 @@ const AddRole = () => {
 
     useEffect(() => {
         editType !== "role" && handleGetAllPermissions()
-        roleIdToEdit && handleGetRoleToEditData();
-    }, []);
+        roleIdToEdit && handleGetRoleToEditData()
+    }, [])
 
     return (
         <ModalsContainer
         className="show d-block"
         id={"add_role_modal"}
         title={editType === "role" 
-        ? 'ویرایش نقش' 
+        ? 'Edit Role' 
         : editType === "permissions" 
-        ?  "ویرایش مجوز های دسترسی:" + roleToEdit?.title || "" 
-        : "افزودن نقش کاربر"}
+        ?  "Edit Access Permissions:" + roleToEdit?.title || "" 
+        : "Add User Role"}
         fullScreen={editType == "role" ? false :true}
         closeFunction={()=>navigate(-1)}
         >
@@ -76,15 +76,15 @@ const AddRole = () => {
                                     control="input"
                                     type="text"
                                     name="title"
-                                    label="عنوان نقش"
-                                    placeholder="فقط از حروف فارسی و لاتین استفاده کنید"
+                                    label="Role Title"
+                                    placeholder="Only use Persian and Latin letters"
                                     />
                                     <FormikControl
                                     className={editType == "role" ? "" :"col-md-8"}
                                     control="textarea"
                                     name="description"
-                                    label="توضیحات نقش"
-                                    placeholder="فقط از حروف فارسی و لاتین استفاده کنید"
+                                    label="Role Description"
+                                    placeholder="Only use Persian and Latin letters"
                                     />
                                 </>
                             ) : null }
@@ -94,7 +94,7 @@ const AddRole = () => {
                                 className="col-md-8"
                                 control="checkbox"
                                 name="permissions_id"
-                                label="دسترسی ها: "
+                                label="Access: "
                                 options={permissions}
                                 />
                             ): null}
@@ -109,7 +109,7 @@ const AddRole = () => {
             </div>
 
         </ModalsContainer>
-    );
+    )
 }
 
-export default AddRole;
+export default AddRole

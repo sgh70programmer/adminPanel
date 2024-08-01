@@ -1,12 +1,12 @@
-import httpService from "./httpService";
+import httpService from "./httpService"
 
 export const getAllDeliveriesService = () => {
-  return httpService("/admin/deliveries", "get");
-};
+  return httpService("/admin/deliveries", "get")
+}
 
 export const getOneDeliveryService = (deliveryId) => {
-  return httpService(`/admin/deliveries/${deliveryId}`, "get");
-};
+  return httpService(`/admin/deliveries/${deliveryId}`, "get")
+}
 
 export const addNewDeliveryService = (data)=>{
   return httpService("/admin/deliveries", 'post', data)

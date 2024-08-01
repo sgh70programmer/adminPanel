@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const SpinnerLoad = ({ colorClass, isSmall, inline }) => {
   return (
@@ -12,7 +12,7 @@ const SpinnerLoad = ({ colorClass, isSmall, inline }) => {
         
       </div>
     </span>
-  );
-};
+  )
+}
 
-export default SpinnerLoad;
+export default SpinnerLoad

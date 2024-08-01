@@ -1,4 +1,4 @@
-import httpService from "./httpService";
+import httpService from "./httpService"
 
 
 export const loginService = (values) => {
@@ -6,10 +6,10 @@ export const loginService = (values) => {
         return httpService("/auth/login", "post", {
             ...values,
             remember: values.remember ? 1 : 0,
-        });
+        })
   
 
-};
+}
 
 export const logoutService = () => {
 

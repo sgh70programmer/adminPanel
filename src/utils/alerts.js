@@ -1,12 +1,12 @@
-import swal from "sweetalert";
+import swal from "sweetalert"
 
 export const Alert = (title, text, icon)=>{
     swal({
         title,
         text,
         icon,
-        button: "متوجه شدم",
-    });
+        button: "ok",
+    })
 }
 
 export const Confirm = (title, text)=>{
@@ -14,7 +14,7 @@ export const Confirm = (title, text)=>{
         title,
         text,
         icon:"warning",
-        buttons: ["خیر", "بله"],
+        buttons: ["no", "yes"],
         dangerMode: true
     })
 }

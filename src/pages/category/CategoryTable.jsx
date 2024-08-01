@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import PaginatedTable from "../../components/PaginatedTable";
-import Addcategory from "./AddCategory";
-import { deleteCategoryService, getCategoriesService } from "../../services/category";
-import Actions from "./tableAdditons/Action";
-import ShowInMenu from "./tableAdditons/ShowInMenu";
-import { Outlet, useLocation, useParams } from "react-router-dom";
-import { convertDateToJalali } from "../../utils/convertDate";
-import { Alert, Confirm } from "../../utils/alerts";
+import React, { useEffect, useState } from "react"
+import PaginatedTable from "../../components/PaginatedTable"
+import Addcategory from "./AddCategory"
+import { deleteCategoryService, getCategoriesService } from "../../services/category"
+import Actions from "./tableAdditons/Action"
+import ShowInMenu from "./tableAdditons/ShowInMenu"
+import { Outlet, useParams } from "react-router-dom"
+import { convertDateToMiladi } from "../../utils/convertDate"
+import { Alert, Confirm } from "../../utils/alerts"
 
 const Categorytable = () => {
   const params = useParams()
   const [data, setData] = useState([])
-  const [forceRender, setForceRender] = useState(0);
+  const [forceRender, setForceRender] = useState(0)
   const [loading, setLoading] = useState(false)
 
   const handleGetCategories = async () => {
@@ -30,12 +30,12 @@ const Categorytable = () => {
   }
 
   const handleDeleteCategory = async (rowData)=>{
-    if (await Confirm('حذف دسته بندی', `آیا از حذف ${rowData.title} اطمینان دارید؟`)) {
+    if (await Confirm("Remove the category",`Are you sure to delete ${rowData.title}?`)) {
      try {
-       const res = await deleteCategoryService(rowData.id);
+       const res = await deleteCategoryService(rowData.id)
        if (res.status === 200) {
          setData(data.filter(d=>d.id != rowData.id))
-         Alert('انجام شد', res.data.message, 'success')
+         Alert('Done', res.data.message, 'success')
        }
      } catch (error) {
        
@@ -50,34 +50,34 @@ const Categorytable = () => {
 
   const dataInfo = [
     { field: "id", title: "#" },
-    { field: "title", title: "عنوان محصول" },
-    { field: "parent_id", title: "والد" },
+    { field: "title", title: "Product Title" },
+    { field: "parent_id", title: "Parent" },
     {
       field:null,
-      title: "تاریخ",
-      elements: (rowData) => convertDateToJalali(rowData.created_at),
+      title: "Date",
+      elements: (rowData) => convertDateToMiladi(rowData.created_at),
     },
 
     {
       field:null,
-      title: "نمایش در منو",
+      title: "Show in the menu",
       elements: (rowData) => <ShowInMenu rowData={rowData} />,
     },
 
     {
       field:null,
-      title: "عملیات",
+      title: "Action",
       elements: (rowData) => <Actions rowData={rowData} handleDeleteCategory={handleDeleteCategory} />,
     },
 
-  ];
+  ]
 
 
 
 
   const searchParams = {
-    title: "جستجو",
-    placeholder: "قسمتی از عنوان را وارد کنید",
+    title: "Search",
+    placeholder: "Enter part of the title",
     searchField: "title"
   }
 
@@ -97,7 +97,7 @@ const Categorytable = () => {
 
     </>  
 
-  );
-};
+  )
+}
 
-export default Categorytable;
+export default Categorytable

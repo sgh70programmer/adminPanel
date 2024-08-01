@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { AdminContext } from '../../../context/adminLayoutContext';
+import { AdminContext } from '../../../context/adminLayoutContext'
 
 export default function RightContent() {
-    const {setShowSidebar} = useContext(AdminContext);
+    const {setShowSidebar} = useContext(AdminContext)
     return (
         <div className="right_content h-100 py-1 bg-dark">
-            <a className="navbar-brand h-100" href="/">
-                <img src="/assets/images/logo.png" className="h-100" />
+            <a className="navbar-brand h-100 ms-3 me-0" href="/">
+                <img src="/assets/images/newlogo.png" className="h-100" />
             </a>
             <div className="form-check form-switch mx-4 d-none d-md-block">
                 <input

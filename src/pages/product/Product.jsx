@@ -1,5 +1,5 @@
-import React from "react";
-import TableProduct from "./TableProduct";
+import React from "react"
+import TableProduct from "./TableProduct"
 
 const Product = () => {
   return (
@@ -7,10 +7,10 @@ const Product = () => {
       id="manage_product_section"
       className="manage_product_section main_section"
     >
-      <h4 className="text-center my-3">مدیریت محصولات</h4>
+      <h4 className="text-center my-3">Product management</h4>
       <TableProduct />
     </div>
-  );
-};
+  )
+}
 
-export default Product;
+export default Product

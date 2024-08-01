@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import ActionIcon from "../../components/ActionIcon";
-import SpinnerLoad from "../../components/SpinnerLoad";
-import { getFewerProductsService, toggleNotificationService } from "../../services/products";
-import { Alert } from "../../utils/alerts";
+import React, { useEffect, useState } from "react"
+import ActionIcon from "../../components/ActionIcon"
+import SpinnerLoad from "../../components/SpinnerLoad"
+import { getFewerProductsService, toggleNotificationService } from "../../services/products"
+import { Alert } from "../../utils/alerts"
 
 const ProductTable = () => {
   
@@ -11,7 +11,7 @@ const ProductTable = () => {
 
   const handleGetFewerProducts = async ()=>{
     setLoading(true)
-    const res = await getFewerProductsService();
+    const res = await getFewerProductsService()
     setLoading(false)
     if (res.status == 200) {
       const products = res.data.data
@@ -20,10 +20,10 @@ const ProductTable = () => {
   }
 
   const handleTurnoffNotification = async (productId)=>{
-    const res = await toggleNotificationService(productId);
+    const res = await toggleNotificationService(productId)
     if (res.status == 200) {
-      Alert('انجام شد', res.data.message, 'success');
-      setFewerProducts(old=>old.filter(p=>p.id != productId));
+      Alert('Done', res.data.message, 'success')
+      setFewerProducts(old=>old.filter(p=>p.id != productId))
     }
   }
 
@@ -32,21 +32,21 @@ const ProductTable = () => {
   },[])
   return (
     <div className="col-12 col-lg-6">
-      <p className="text-center mt-3 text-dark">محصولات رو به اتمام</p>
+      <p className="text-center mt-3 text-dark">Products running out</p>
       {loading ? (<SpinnerLoad colorClass={"text-primary"}/>) 
       : fewerProducts.length === 0 
       ? (
-        <strong className="text-primary">فعلا محصول رو به اتمامی وجود ندارد</strong>
+        <strong className="text-primary">Currently there is no finished product</strong>
       ) 
       : (
         <table className="table table-responsive text-center table-hover table-bordered no_shadow_back_table font_08">
           <thead className="table-secondary">
             <tr>
               <th>#</th>
-              <th>دسته</th>
-              <th>عنوان</th>
-              <th>وضعیت</th>
-              <th>عملیات</th>
+              <th>Category</th>
+              <th>Title</th>
+              <th>Status</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -57,10 +57,10 @@ const ProductTable = () => {
                 <td>{p.categories[0]?.title}</td>
                 <td>{p.title}</td>
                 <td>{p.stock === 0 ? (
-                  <span className="text-danger">پایان یافته</span>
-                ) : `رو به اتمام : (${p.stock})` }</td>
+                  <span className="text-danger">Finished</span>
+                ) : `running out : (${p.stock})` }</td>
                 <td>
-                  <ActionIcon icon="fas fa-eye-slash text-danger" pTitle="update_product_notification" title="نادیده گرفتن"
+                  <ActionIcon icon="fas fa-eye-slash text-danger" pTitle="update_product_notification" title="ignore"
                   onClick={()=>handleTurnoffNotification(p.id)}
                   />
                 </td>
@@ -71,7 +71,7 @@ const ProductTable = () => {
         </table>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ProductTable;
+export default ProductTable

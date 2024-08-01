@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { getThisYearOrdersService } from '../../services/orders';
-import { setDashboardChart } from "../../utils/dashboardChart";
+import React, { useEffect, useState } from 'react'
+import { getThisYearOrdersService } from '../../services/orders'
+import { setDashboardChart } from "../../utils/dashboardChart"
 import jMoment from 'moment-jalaali'
-import SpinnerLoad from '../../components/SpinnerLoad';
+import SpinnerLoad from '../../components/SpinnerLoad'
 
 const labels = [
-  "فروردین",
-  "اردیبهشت",
-  "خرداد",
-  "تیر",
-  "مرداد",
-  "شهریور",
-  "مهر",
-  "آبان",
-  "آذر",
-  "دی",
-  "بهمن",
-  "اسفند",
-];
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "Juan",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+]
 
 const SaleChart = () => {
   const [loading, setLoading] = useState(false)
@@ -30,7 +30,7 @@ const SaleChart = () => {
 
       const monthsOrdersArr = []
       const now = jMoment()
-      let  thisMonth = now.jMonth();
+      let  thisMonth = now.jMonth()
       for (let i = 0; i < 12; i++) {
         if(thisMonth == -1) thisMonth = 11
         monthsOrdersArr.push({month:thisMonth, amount: 0})
@@ -46,12 +46,12 @@ const SaleChart = () => {
       }
       
       monthsOrdersArr.reverse()
-      setDashboardChart(monthsOrdersArr.map(o=>labels[o.month]), monthsOrdersArr.map(o=>o.amount/1000000));
+      setDashboardChart(monthsOrdersArr.map(o=>labels[o.month]), monthsOrdersArr.map(o=>o.amount/1000000))
     }
   }
     useEffect(() => {
-      handleGetChartInfo();
-    }, []); 
+      handleGetChartInfo()
+    }, []) 
     return (
       <>
           {loading && <SpinnerLoad colorClass={"text-primary"}/>}
@@ -59,7 +59,7 @@ const SaleChart = () => {
             <canvas id="myChart" height="195"></canvas> 
           </div>
       </>
-    );
+    )
 }
 
-export default SaleChart;
+export default SaleChart

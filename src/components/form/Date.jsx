@@ -1,43 +1,43 @@
-import { FastField, ErrorMessage } from 'formik';
+import { FastField, ErrorMessage } from 'formik'
 import jMoment from 'moment-jalaali'
-import React, { useEffect, useState } from 'react';
-import FormikError from './FormikError';
-const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31];
+import React, { useEffect, useState } from 'react'
+import FormikError from './FormikError'
+const days = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
 const months = [
-    {id: 1 , value: "فروردین"},
-    {id: 2 , value: "اردیبهشت"},
-    {id: 3 , value: "خرداد"},
-    {id: 4 , value: "تیر"},
-    {id: 5 , value: "مرداد"},
-    {id: 6 , value: "شهریور"},
-    {id: 7 , value: "مهر"},
-    {id: 8 , value: "آبان"},
-    {id: 9 , value: "آذر"},
-    {id: 10 , value: "دی"},
-    {id: 11 , value: "بهمن"},
-    {id: 12 , value: "اسفند"},
+    {id: 1 , value: "January"},
+    {id: 2 , value: "February"},
+    {id: 3 , value: "March"},
+    {id: 4 , value: "April"},
+    {id: 5 , value: "May"},
+    {id: 6 , value: "Juan"},
+    {id: 7 , value: "July"},
+    {id: 8 , value: "August"},
+    {id: 9 , value: "September"},
+    {id: 10 , value: "October"},
+    {id: 11 , value: "November"},
+    {id: 12 , value: "December"},
 ]
 
 const Date = ({formik,name,label, initialDate, yearsLimit, className, placeholder}) => {
 
-    const [day , setDay] = useState();
-    const [month , setMonth] = useState();
-    const [year , setYear] = useState();
+    const [day , setDay] = useState()
+    const [month , setMonth] = useState()
+    const [year , setYear] = useState()
     const [years , setYears] = useState([])
     const [showConfig , setShowConfig] = useState(false)
 
     useEffect(()=>{
-        let now = jMoment(initialDate);
-        setDay(now.jDate());
-        setMonth(now.jMonth() + 1);
-        setYear(now.jYear());
+        let now = jMoment(initialDate)
+        setDay(now.date())
+        setMonth(now.month() + 1)
+        setYear(now.year())
     } , [])
 
     const handleShowDateConfig = ()=>{
         for (let index = parseInt(year)- (yearsLimit?.from || 100); index <= parseInt(year) + (yearsLimit?.to || 0); index++) {
             setYears((oldYears)=>{
                 return [...oldYears , index]
-            });           
+            })           
         }  
         setShowConfig(true)
     }
@@ -57,8 +57,8 @@ const Date = ({formik,name,label, initialDate, yearsLimit, className, placeholde
         <div className={`validate-input form_date_picker ${className}`} >
 
             <div className="input-group mb-3 dir_ltr pointer" onClick={handleShowDateConfig} >
-                <FastField type="text" name={name} className="form-control pointer" placeholder={placeholder || 'جهت انتخاب تاریخ کلیک کنید'} aria-disabled="true"/>
-                {label && <span className="input-group-text w_6rem justify-content-center"> {label} </span>}
+                {label && <span className="input-group-text justify-content-center"> {label} </span>}
+                <FastField type="text" name={name} className="form-control pointer" placeholder={placeholder || 'Click to select a date'} aria-disabled="true"/>
             </div>
             
             {
@@ -93,7 +93,7 @@ const Date = ({formik,name,label, initialDate, yearsLimit, className, placeholde
             }
             <ErrorMessage name={name} component={FormikError}/>
         </div>
-    );
+    )
 }
 
-export default Date;
+export default Date

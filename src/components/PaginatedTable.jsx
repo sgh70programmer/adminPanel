@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import SpinnerLoad from "./SpinnerLoad";
+import React, { useState, useEffect } from 'react'
+import SpinnerLoad from "./SpinnerLoad"
 
 const PaginatedTable = ({ children, data, dataInfo, numOfPAge, searchParams, loading }) => {
-  const [initData, setIninData] = useState(data);
-  const [tableData, setTableData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pages, setPages] = useState([]);
-  const [pageCount, setPageCount] = useState(1);
-  const [searchChar, setSearchChar] = useState("");
+  const [initData, setIninData] = useState(data)
+  const [tableData, setTableData] = useState([])
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pages, setPages] = useState([])
+  const [pageCount, setPageCount] = useState(1)
+  const [searchChar, setSearchChar] = useState("")
   const pageRange = 3
 
 
   useEffect(() => {
-    let pCount = Math.ceil(initData.length / numOfPAge);
-    setPageCount(pCount);
-    let pArr = [];
-    for (let i = 1; i <= pCount; i++) pArr = [...pArr, i];
-    setPages(pArr);
-  }, [initData]);
+    let pCount = Math.ceil(initData.length / numOfPAge)
+    setPageCount(pCount)
+    let pArr = []
+    for (let i = 1; i <= pCount; i++) pArr = [...pArr, i]
+    setPages(pArr)
+  }, [initData])
 
   useEffect(() => {
-    let start = currentPage * numOfPAge - numOfPAge; // 0
-    let end = currentPage * numOfPAge; // 2
-    setTableData(initData.slice(start, end));
-  }, [currentPage, initData]);
+    let start = currentPage * numOfPAge - numOfPAge // 0
+    let end = currentPage * numOfPAge // 2
+    setTableData(initData.slice(start, end))
+  }, [currentPage, initData])
 
   useEffect(() => {
 
@@ -34,19 +34,20 @@ const PaginatedTable = ({ children, data, dataInfo, numOfPAge, searchParams, loa
   return (
     <>
       <div className="row justify-content-between">
+        <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-start">
+          {children}
+        </div>
         <div className="col-10 col-md-6 col-lg-4">
-          <div className="input-group mb-3 dir_ltr">
+          <div className="input-group mb-3">
+          <span className="input-group-text">{searchParams.title}</span>
             <input
               type="text"
               className="form-control"
               placeholder={searchParams.placeholder}
               onChange={e => setSearchChar(e.target.value)}
             />
-            <span className="input-group-text">{searchParams.title}</span>
+           
           </div>
-        </div>
-        <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-          {children}
         </div>
       </div>
       {
@@ -75,7 +76,7 @@ const PaginatedTable = ({ children, data, dataInfo, numOfPAge, searchParams, loa
                 </tr>
               ))}
             </tbody>
-          </table> : <h5 className="text-center my-5 text-danger">هیچ رکوردی یافت نشد</h5>}
+          </table> : <h5 className="text-center my-5 text-danger">No records found</h5>}
       {pages.length > 1 && <nav
         aria-label="Page navigation example"
         className="d-flex justify-content-center"
@@ -136,7 +137,7 @@ const PaginatedTable = ({ children, data, dataInfo, numOfPAge, searchParams, loa
 
 
     </>
-  );
+  )
 }
 
-export default PaginatedTable;
+export default PaginatedTable

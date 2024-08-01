@@ -1,15 +1,14 @@
-import { ErrorMessage, FastField, Field } from "formik";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
-import FormikError from "./FormikError";
+import { ErrorMessage, Field } from "formik"
+import React from "react"
+import { useEffect } from "react"
+import { useState } from "react"
+import FormikError from "./FormikError"
 
-// if resultType == "string" then:  "1-2-3"  else:   [1,2,3]
 
 const SearchableSelect = ({ resultType, options, name, label, className, firstItem, initialItems }) => {
-  const [selectedItems, setSelectedItems] = useState([]);
-  const [showItems, setShowItems] = useState(false);
-  const [copyOptions, setCopyOptions] = useState(options);
+  const [selectedItems, setSelectedItems] = useState([])
+  const [showItems, setShowItems] = useState(false)
+  const [copyOptions, setCopyOptions] = useState(options)
 
 
   useEffect(() => {
@@ -29,27 +28,27 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
   const handleSelectItems = (selectedId, formik) => {
     if (selectedItems.findIndex(d => d.id == selectedId) == -1 && selectedId > 0) {
 
-      const newData = [...selectedItems, options.filter(o => o.id == selectedId)[0]];
+      const newData = [...selectedItems, options.filter(o => o.id == selectedId)[0]]
       setSelectedItems(newData)
 
-      const selectedIds = newData.map(nd => nd.id);
+      const selectedIds = newData.map(nd => nd.id)
       const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds
-      formik.setFieldValue(name, nameValue);
+      formik.setFieldValue(name, nameValue)
     }
   }
 
   const handleRemovefromSelectedItems = (event, selectedId, formik) => {
     event.stopPropagation()
     setSelectedItems((oldData) => {
-      const newData = oldData.filter((d) => d.id != selectedId);
+      const newData = oldData.filter((d) => d.id != selectedId)
 
-      const selectedIds = newData.map((nd) => nd.id);
+      const selectedIds = newData.map((nd) => nd.id)
       const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds
-      formik.setFieldValue(name, nameValue);
+      formik.setFieldValue(name, nameValue)
 
-      return newData;
-    });
-  };
+      return newData
+    })
+  }
 
   return (
     <Field>
@@ -60,7 +59,8 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
               e.stopPropagation()
               setShowItems(!showItems)
             }}>
-              <div className="form-control" id={name + "-select"}>
+              <span htmlFor={name + "-select"} className="input-group-text justify-content-center" >{label}</span>
+              <div className="form-control d-flex" id={name + "-select"}>
                 {selectedItems.length > 0 ?
                   selectedItems.map((selectedItem) => (
                     <span className="chips_elem" key={selectedItem.id}>
@@ -73,7 +73,7 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
                     <span className="text-secondary">{firstItem}</span>
                   )}
                 <div className={`multi_select_items_content ${!showItems ? "d-none" : ""}`}>
-                  <input type="text" className="form-control" autoFocus={showItems} placeholder="قسمتی از عنوان مورد نظر را وارد کنید"
+                  <input type="text" className="form-control" autoFocus={showItems} placeholder="Enter part of desired title"
                     onClick={(e) => e.stopPropagation()}
                     onChange={(e) => setCopyOptions(options.filter(o => o.value.includes(e.target.value)))} />
                   <ul className="p-0">
@@ -83,14 +83,14 @@ const SearchableSelect = ({ resultType, options, name, label, className, firstIt
                   </ul>
                 </div>
               </div>
-              <span htmlFor={name + "-select"} className="input-group-text w_6rem justify-content-center" >{label}</span>
+
             </div>
             <ErrorMessage name={name} component={FormikError} />
           </div>
         )
       }}
     </Field>
-  );
-};
+  )
+}
 
-export default SearchableSelect;
+export default SearchableSelect

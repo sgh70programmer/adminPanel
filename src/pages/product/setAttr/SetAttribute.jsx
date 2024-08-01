@@ -1,15 +1,14 @@
-import { ErrorMessage, FastField, Form, Formik } from "formik";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import SubmitButton from "../../../components/form/SubmitButton";
-import PrevPageButton from "../../../components/PrevPageButton";
-import SpinnerLoad from "../../../components/SpinnerLoad";
-import { getCategoryAttrsService } from "../../../services/categoryAttr";
-import * as Yup from "yup";
-import { initializingData, onSubmit } from "./core";
-import FormikError from "../../../components/form/FormikError";
+import { ErrorMessage, FastField, Form, Formik } from "formik"
+import React from "react"
+import { useState } from "react"
+import { useEffect } from "react"
+import { useLocation } from "react-router-dom"
+import SubmitButton from "../../../components/form/SubmitButton"
+import PrevPageButton from "../../../components/PrevPageButton"
+import SpinnerLoad from "../../../components/SpinnerLoad"
+import * as Yup from "yup"
+import { initializingData, onSubmit } from "./core"
+import FormikError from "../../../components/form/FormikError"
 
 
 const SetAttribute = () => {
@@ -35,7 +34,7 @@ const SetAttribute = () => {
 
     return (
         <div className="container">
-            <h4 className="text-center my-3"> افزودن ویژگی محصول: <span className="text-primary">{selectedProduct.title}</span> </h4>
+            <h4 className="text-center my-3"> Add product feature: <span className="text-primary">{selectedProduct.title}</span> </h4>
             <div className="text-left col-md-6 col-lg-8 m-auto my-3">
                 <PrevPageButton />
             </div>
@@ -50,7 +49,7 @@ const SetAttribute = () => {
                             {
                                 attrs.map((attr, index) => (
                                     <div key={"group" + index} className="row justify-content-center">
-                                        <h6 className="text-center">گروه : {attr.groupTitle}</h6>
+                                        <h6 className="text-center">group : {attr.groupTitle}</h6>
                                         {
                                             attr.data.length > 0 ? (
                                                 attr.data.map(attrData => (
@@ -64,7 +63,7 @@ const SetAttribute = () => {
                                                     </div>
                                                 ))
                                             ) : (
-                                                <small className="text-center text-danger ">هیچ ویژگی برای گروه های این محصول ایجاد نشده است</small>
+                                                <small className="text-center text-danger ">No attributes have been created for this product group</small>
                                             )
                                         }
                                     </div>
@@ -84,7 +83,7 @@ const SetAttribute = () => {
                 }
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default SetAttribute;
+export default SetAttribute

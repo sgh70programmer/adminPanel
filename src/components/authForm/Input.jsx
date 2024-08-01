@@ -1,5 +1,5 @@
-import { FastField } from 'formik';
-import React from 'react';
+import { FastField } from 'formik'
+import React from 'react'
 
 const Input = ({formik,type,name,icon,label}) => {
     return (
@@ -13,7 +13,7 @@ const Input = ({formik,type,name,icon,label}) => {
                 <i className={icon}></i>
             </span>
         </div>
-    );
+    )
 }
 
-export default Input;
+export default Input

@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 export default function LeftContent() {
-    const user = useSelector(state=>state.userReducer.data)
+    const user = useSelector(state => state.userReducer.data)
     return (
         <div className="left_content d-flex flex-row-reverse">
             <i
@@ -21,27 +21,27 @@ export default function LeftContent() {
                 </li>
                 <li className="my-2 d-flex justify-content-center align-items-center px-2">
                     <i className="fas fa-tachometer-alt"></i>
-                    <a className="dropdown-item" href="#">
-                        داشبورد
-                    </a>
+                    <Link className="dropdown-item" to="/">
+                        dashboard
+                    </Link>
                 </li>
                 <li className="my-2 d-flex justify-content-center align-items-center px-2">
                     <i className="fas fa-paper-plane"></i>
                     <a className="dropdown-item" href="#">
-                        تیکت ها
+                        tickets
                     </a>
                 </li>
                 <li className="my-2 d-flex justify-content-center align-items-center px-2">
                     <i className="fas fa-envelope"></i>
                     <a className="dropdown-item" href="#">
-                        پیام ها
+                        Messages
                     </a>
                 </li>
                 <hr />
                 <li className="d-flex justify-content-center align-items-center px-2">
                     <i className="fas fa-power-off"></i>
                     <Link to={"/logout"} className="dropdown-item" href="#">
-                        خروج
+                        exit
                     </Link>
                 </li>
             </ul>

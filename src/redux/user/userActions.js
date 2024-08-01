@@ -1,4 +1,3 @@
-import { getUserService } from "../../services/auth"
 import { RECEIVE_USER_ERROR, RECEIVE_USER_RESPONSE, SEND_USER_REQUEST } from "./userTypes"
 
 export const sendUserRequest = ()=>{

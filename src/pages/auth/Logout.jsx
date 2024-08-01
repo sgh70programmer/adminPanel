@@ -1,8 +1,6 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { Alert } from "../../utils/alerts";
-import { logoutService } from "../../services/auth";
+import React, { useEffect, useState } from "react"
+import { Navigate } from "react-router-dom"
+import { logoutService } from "../../services/auth"
 
 export default function Logout() {
     const [loading, setLoading] = useState(true)
@@ -11,11 +9,11 @@ export default function Logout() {
         try{
             const res = await logoutService()
             if(res.status == 200){
-                localStorage.removeItem("loginToken");
+                localStorage.removeItem("loginToken")
             }
             setLoading(false)
         }catch(err){
-            setLoading(false);
+            setLoading(false)
             
         }
      
@@ -30,7 +28,7 @@ export default function Logout() {
     return (
         <>
             {loading ? (
-                <h1 className="text-center waiting_center">لطفا صبر کنید...</h1>
+                <h1 className="text-center waiting_center">please wait...</h1>
             ) : (
                 <Navigate to="/auth/login" />
             )}

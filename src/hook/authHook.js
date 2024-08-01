@@ -1,13 +1,12 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { getUserService } from "../services/auth";
-import { useDispatch } from "react-redux";
-import { receiveUserResponse } from "../redux/user/userActions";
+import { useEffect, useState } from "react"
+import { getUserService } from "../services/auth"
+import { useDispatch } from "react-redux"
+import { receiveUserResponse } from "../redux/user/userActions"
 
 
 export default function useIsLogin() {
-    const [isLogin, setIsLogin] = useState(false);
-    const [loading, setLoading] = useState(true);
+    const [isLogin, setIsLogin] = useState(false)
+    const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
    
     const handleCheckLogin = async () => {

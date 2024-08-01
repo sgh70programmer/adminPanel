@@ -1,6 +1,6 @@
 
-import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
+import React, { useRef } from 'react'
+import { createPortal } from 'react-dom'
 
 const ModalsContainer = ({children, id, fullScreen, title, className, closeFunction, closeModal}) => {
   const modalRef = useRef()
@@ -36,21 +36,21 @@ const ModalsContainer = ({children, id, fullScreen, title, className, closeFunct
             <div className="modal-body">
                 {children}
             </div>
-            <div className="modal-footer">
+            <div className="modal-footer justify-content-start">
               <button
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"
                 onClick={closeFunction || null}
               >
-                انصراف
+                cancel
               </button>
             </div>
           </div>
         </div>
       </div>,
         document.getElementById('modals-root')
-    );
+    )
 }
 
-export default ModalsContainer;
+export default ModalsContainer

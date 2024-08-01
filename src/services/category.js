@@ -1,7 +1,7 @@
 import httpService from "./httpService"
 
 export const getCategoriesService = (id=null)=>{
-    return httpService(`/admin/categories${id ? `?parent=${id}`: ""}`, 'get');
+    return httpService(`/admin/categories${id ? `?parent=${id}`: ""}`, 'get')
 }
 
 
@@ -21,13 +21,13 @@ export const createNewCategoryService  = (data) =>{
         data = formData
     }
 
-    return httpService('/admin/categories', 'post', data);
+    return httpService('/admin/categories', 'post', data)
 }
 
 export const editCategoryService = (id, data)=>{
-    return httpService(`/admin/categories/${id}`, 'put', data);
+    return httpService(`/admin/categories/${id}`, 'put', data)
 }
 
 export const deleteCategoryService = (id)=>{
-    return httpService(`/admin/categories/${id}`, 'delete');
+    return httpService(`/admin/categories/${id}`, 'delete')
 }

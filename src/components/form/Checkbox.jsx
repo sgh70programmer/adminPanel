@@ -1,9 +1,9 @@
-import { ErrorMessage, Field } from 'formik';
-import React, { Fragment } from 'react';
-import FormikError from './FormikError';
+import { ErrorMessage, Field } from 'formik'
+import React from 'react'
+import FormikError from './FormikError'
 
 const Checkbox = (props) => {
-    const {name,label,options, className} = props;
+    const {name,label,options, className} = props
     return (
         <div className={`mb-2 ${className} row`}>
             <label htmlFor={name} className="form-label">{label}</label>
@@ -20,13 +20,14 @@ const Checkbox = (props) => {
                             value={o.id}
                             checked={field.value.includes(o.id + "")}
                             />
-                            <label htmlFor={`${name}_${o.id}`} className="mx-1 ms-4 pointer">{o.title}</label>
+                            <label htmlFor={`${name}_${o.id}`} className="mx-1 pointer">{o.title}</label>
+                            
                         </div>
                     ))
                 }}
             </Field>
         </div>
-    );
+    )
 }
 
-export default Checkbox;
+export default Checkbox

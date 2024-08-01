@@ -1,6 +1,6 @@
-import { addCategoryAttrService, editCategoryAttrService } from "../../../services/categoryAttr";
-import * as Yup from 'yup';
-import { Alert } from "../../../utils/alerts";
+import { addCategoryAttrService, editCategoryAttrService } from "../../../services/categoryAttr"
+import * as Yup from 'yup'
+import { Alert } from "../../../utils/alerts"
 
 
 export const initialValues = {
@@ -24,15 +24,15 @@ export const onSubmit = async (values, actions, catId, setData, attrToEdit, setA
                     newData[index] = res.data.data
                     return newData
                 })
-                Alert('انجام شد', res.data.message, 'success');
+                Alert('Done', res.data.message, 'success')
                 setAttrToEdit(null)
             }
         } else {
-            const res = await addCategoryAttrService(catId, values);
+            const res = await addCategoryAttrService(catId, values)
             if (res.status === 201) {
-                Alert('انجام شد', res.data.message, 'success');
+                Alert('Done', res.data.message, 'success')
                 setData(oldData => [...oldData, res.data.data])
-                actions.resetForm();
+                actions.resetForm()
             }
         }
 
@@ -42,14 +42,14 @@ export const onSubmit = async (values, actions, catId, setData, attrToEdit, setA
 
 export const validationSchema = Yup.object({
     title: Yup.string()
-        .required("لطفا این قسمت را پر کنید")
+        .required("Please fill in this field")
         .matches(
             /^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/,
-            "فقط از حروف و اعداد استفاده شود"
+            "Use only letters and numbers"
         ),
     unit: Yup.string()
-        .required("لطفا این قسمت را پر کنید")
-        .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/, "فقط عدد می توانید وارد کنید")
+        .required("Please fill in this field")
+        .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%$?&]+$/, "You can only enter numbers")
     ,
     in_filter: Yup.boolean(),
 })

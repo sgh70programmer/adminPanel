@@ -1,18 +1,17 @@
-import { Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
-import FormikControl from '../../components/form/FormikControl';
-import SubmitButton from '../../components/form/SubmitButton';
-import ModalsContainer from '../../components/ModalsContainer';
-import { getSinglrCartService } from '../../services/carts';
-import { getAllDeliveriesService } from '../../services/deliveries';
-import { getOneDiscountService } from '../../services/discounts';
-import { getSinglrOrderService } from '../../services/orders';
-import { Alert } from '../../utils/alerts';
-import { convertDataToFormdata } from '../../utils/convertFormData';
-import { convertDateToJalali } from '../../utils/convertDate';
-import { numberWithCommas } from '../../utils/numbers';
-import { initialValues, onSubmit, validationSchema } from './core';
+import { Form, Formik } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom'
+import FormikControl from '../../components/form/FormikControl'
+import SubmitButton from '../../components/form/SubmitButton'
+import ModalsContainer from '../../components/ModalsContainer'
+import { getSinglrCartService } from '../../services/carts'
+import { getAllDeliveriesService } from '../../services/deliveries'
+import { getOneDiscountService } from '../../services/discounts'
+import { getSinglrOrderService } from '../../services/orders'
+import { Alert } from '../../utils/alerts'
+import { convertDateToJalali } from '../../utils/convertDate'
+import { numberWithCommas } from '../../utils/numbers'
+import { initialValues, onSubmit, validationSchema } from './core'
 
 const AddOrder = () => {
     const navigate = useNavigate()
@@ -25,20 +24,21 @@ const AddOrder = () => {
     const [selectedCartItemsInfo, setSelectedCartItemsInfo] = useState([])
 
     const getAllDeliveries = async ()=>{
-        const res = await getAllDeliveriesService();
-        if (res.status === 200)  setAllDeliveries(res.data.data.map(d=>({id:d.id, value:d.title + "-" + d.amount})));
+        const res = await getAllDeliveriesService()
+        if (res.status === 200)  setAllDeliveries(res.data.data.map(d=>({id:d.id, value:d.title + "-" + d.amount})))
     }
 
     const handleGetCartsInfo = async (cartId)=>{
         if (!cartId) return setSelectedCartItemsInfo([])
-        const res = await getSinglrCartService(cartId);
+        const res = await getSinglrCartService(cartId)
+    
        
-        if (res.status === 200) {
+        if (res.status === 200 && res.data.data) {
             let products = []
             const cart = res.data.data
             if(cart?.is_ordered) {
                 setSelectedCartItemsInfo([])
-                return Alert('خطا', 'این سبد در سفارش دیگری قرار دارد', 'warning')
+                return Alert('Error', 'This basket is in another order', 'warning')
             }
             for (const item of cart?.items) {
                 products.push({
@@ -56,7 +56,8 @@ const AddOrder = () => {
     const handleDiscountInfo = async (discountId)=>{
         if (!discountId) return setDiscountPercent(0)
         const res = await getOneDiscountService(discountId)
-        if (res.status === 200) setDiscountPercent(res.data.data.percent)
+    console.log("res discount", res)
+        if (res.status === 200 && res.data.data) setDiscountPercent(res.data.data.percent)
     }
 
     const getSelectedOrderInfo = async ()=>{
@@ -101,7 +102,7 @@ const AddOrder = () => {
             <ModalsContainer
             className="show d-block"
             id={"add_order_modal"}
-            title={selectedOrderId ? "جزئیات سفارش" :"افزودن سفارش"}
+            title={selectedOrderId ? "Order Details" :"Add Order"}
             fullScreen={true}
             closeFunction={()=>navigate(-1)}
             >
@@ -121,7 +122,7 @@ const AddOrder = () => {
                                         control="input"
                                         type="number"
                                         name="cart_id"
-                                        placeholder="کد سبد"
+                                        placeholder="Cart Code"
                                         onBlur={(e)=>handleGetCartsInfo(e.target.value)}
                                         />
                                         <FormikControl
@@ -129,7 +130,7 @@ const AddOrder = () => {
                                         control="date"
                                         formik={formik}
                                         name="pay_at"
-                                        placeholder="تاریخ پرداخت"
+                                        placeholder="date of payment"
                                         initialDate={undefined }
                                         yearsLimit={{from: 10, to:0}}
                                         />
@@ -138,7 +139,7 @@ const AddOrder = () => {
                                             <input 
                                             type="text" 
                                             className="form-control" 
-                                            value={`مبلغ سبد: ${ selectedCartItemsInfo.length > 0 ? numberWithCommas(selectedCartItemsInfo.map(p=>p.count*(p.unit_price || p.product.price)).reduce((a, b)=>a+b)) : 0}`} 
+                                            value={`Cart amount: ${ selectedCartItemsInfo.length > 0 ? numberWithCommas(selectedCartItemsInfo.map(p=>p.count*(p.unit_price || p.product.price)).reduce((a, b)=>a+b)) : 0}`} 
                                             disabled />
                                         </div>
 
@@ -147,12 +148,12 @@ const AddOrder = () => {
                                         control="input"
                                         type="number"
                                         name="discount_id"
-                                        placeholder="آی دی تخفیف"
+                                        placeholder="Discount ID"
                                         onBlur={(e)=>handleDiscountInfo(e.target.value)}
                                         />
 
                                         <div className="col-12 col-md-4 col-lg-2 my-1">
-                                            <input type="text" className="form-control" value={"درصد تخفیف: "+discountPercent} disabled />
+                                            <input type="text" className="form-control" value={"discount percent: "+discountPercent} disabled />
                                         </div>
 
 
@@ -162,7 +163,7 @@ const AddOrder = () => {
                                         control="input"
                                         type="text"
                                         name="address"
-                                        placeholder="آدرس"
+                                        placeholder="Address"
                                         />
                                         <div className="col-12"></div>
 
@@ -171,7 +172,7 @@ const AddOrder = () => {
                                         control="select"
                                         options={allDeliveries}
                                         name="delivery_id"
-                                        firstItem="روش ارسال"
+                                        firstItem="Sending method"
                                         />
 
                                         <FormikControl
@@ -179,7 +180,7 @@ const AddOrder = () => {
                                         control="input"
                                         type="text"
                                         name="phone"
-                                        placeholder="شماره تماس"
+                                        placeholder="Phone number"
                                         />
 
                                         <FormikControl
@@ -187,7 +188,7 @@ const AddOrder = () => {
                                         control="input"
                                         type="text"
                                         name="email"
-                                        placeholder="ایمیل"
+                                        placeholder="Email"
                                         />
 
                                         <FormikControl
@@ -195,7 +196,7 @@ const AddOrder = () => {
                                         control="input"
                                         type="nomber"
                                         name="pay_card_number"
-                                        placeholder="شماره کارت"
+                                        placeholder="Card Number"
                                         />
 
                                         <FormikControl
@@ -203,7 +204,7 @@ const AddOrder = () => {
                                         control="input"
                                         type="text"
                                         name="pay_bank"
-                                        placeholder="نام بانک"
+                                        placeholder="Bank name"
                                         />
 
                                         <hr className="mt-3" />
@@ -216,9 +217,9 @@ const AddOrder = () => {
                                                     <div className="input-group my-3 dir_ltr">
                                                         <span className="input-group-text text-end font_08 w-100 text_truncate">
                                                             {item.product.title}
-                                                            (قیمت واحد: {numberWithCommas(item.unit_price || item.product.price)})
-                                                            (گارانتی: {item.guarantee?.title})
-                                                            ({item.count} عدد)
+                                                            (Unit price : {numberWithCommas(item.unit_price || item.product.price)})
+                                                            (Warranty: {item.guarantee?.title})
+                                                            ({item.count} number)
                                                             <i className="fas fa-circle mx-1" style={{ color: item.color?.code }}></i>
                                                         </span>
                                                     </div>
@@ -246,7 +247,7 @@ const AddOrder = () => {
 
         </>
 
-    );
+    )
 }
 
-export default AddOrder;
+export default AddOrder

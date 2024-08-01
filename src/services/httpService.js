@@ -1,6 +1,6 @@
 import axios from "axios"
 import config from './config.json'
-import { Alert } from "../utils/alerts";
+import { Alert } from "../utils/alerts"
 
 export const apiPath = config.onlinePath
 
@@ -13,14 +13,14 @@ axios.interceptors.response.use((res) => {
             }
             res.data.message = message
         }
-        Alert("مشکل...!", res.data.message, "warning");
+        Alert("problem...!", res.data.message, "warning")
     }
     return res
 }, (err) => {
     if (err.config.url != "https://ecomadminapi.azhadev.ir/api/auth/logout") {
         
 
-        Alert(err.response.status, err.response.data?.message || "مشکلی رخ داده است", "error");
+        Alert(err.response.status, err.response.data?.message || "There has been a problem", "error")
         return Promise.reject(err)
 
     }

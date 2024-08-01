@@ -1,54 +1,55 @@
-import { ErrorMessage, FastField, Field } from "formik";
-import React from "react";
-import { useState } from "react";
-import FormikError from "./FormikError";
+import { ErrorMessage, Field } from "formik"
+import React from "react"
+import { useState } from "react"
+import FormikError from "./FormikError"
 
-// if resultType == "string" then:  "1-2-3"  else:   [1,2,3]
 
-const MultiSelect = ({resultType, options, name, label, className, firstItem}) => {
-  const [selectedItems, setSelectedItems] = useState([]);
 
-  const handleSelectItems = (selectedId, formik)=>{
-    setSelectedItems(oldData=>{
-        if (oldData.findIndex(d=>d.id == selectedId) == -1 && selectedId > 0) {
-            const newData = [...oldData, options.filter(o=>o.id == selectedId)[0]];
+const MultiSelect = ({ resultType, options, name, label, className, firstItem }) => {
+  const [selectedItems, setSelectedItems] = useState([])
 
-            const selectedIds = newData.map(nd=>nd.id);
-            const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds
-            formik.setFieldValue(name, nameValue);
+  const handleSelectItems = (selectedId, formik) => {
+    setSelectedItems(oldData => {
+      if (oldData.findIndex(d => d.id == selectedId) == -1 && selectedId > 0) {
+        const newData = [...oldData, options.filter(o => o.id == selectedId)[0]]
 
-            return newData
-        }else{
-            return oldData
-        }
+        const selectedIds = newData.map(nd => nd.id)
+        const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds
+        formik.setFieldValue(name, nameValue)
+
+        return newData
+      } else {
+        return oldData
+      }
     })
   }
 
   const handleRemovefromSelectedItems = (selectedId, formik) => {
     setSelectedItems((oldData) => {
-      const newData = oldData.filter((d) => d.id != selectedId);
+      const newData = oldData.filter((d) => d.id != selectedId)
 
-      const selectedIds = newData.map((nd) => nd.id);
+      const selectedIds = newData.map((nd) => nd.id)
       const nameValue = resultType == "string" ? selectedIds.join("-") : selectedIds
-      formik.setFieldValue(name, nameValue);
+      formik.setFieldValue(name, nameValue)
 
-      return newData;
-    });
-  };
+      return newData
+    })
+  }
   return (
     <Field>
       {({ form }) => {
         return (
           <div className={`col-12 ${className}`}>
-            
+
             <div className="input-group mb-3 dir_ltr">
-              <select className="form-control" id={name + "-select"} onChange={(e)=>handleSelectItems(e.target.value, form)} >
+              <label htmlFor={name + "-select"} className="input-group-text justify-content-center" >{label}</label>
+              <select className="form-control" id={name + "-select"} onChange={(e) => handleSelectItems(e.target.value, form)} >
                 <option value=""> {firstItem} </option>
                 {options.map((o) => (
                   <option key={o.id} value={o.id}> {o.value} </option>
                 ))}
               </select>
-              <label htmlFor={name + "-select"} className="input-group-text w_6rem justify-content-center" >{label}</label>
+
             </div>
 
             <ErrorMessage name={name} component={FormikError} />
@@ -63,10 +64,10 @@ const MultiSelect = ({resultType, options, name, label, className, firstItem}) =
             </div>
 
           </div>
-        );
+        )
       }}
     </Field>
-  );
-};
+  )
+}
 
-export default MultiSelect;
+export default MultiSelect

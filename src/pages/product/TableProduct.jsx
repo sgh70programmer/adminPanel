@@ -1,17 +1,15 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import PaginatedDataTable from "../../components/PaginatedDataTable";
-import { deleteProductService, getProductsService } from "../../services/products";
-import AddProduct from "./AddProduct";
-import Actions from "./tableAddition/Actions";
-import { Alert, Confirm } from "../../utils/alerts";
-import { Link } from "react-router-dom";
-import AddButtonLink from "../../components/AddButtonLink";
-import DOMPurify from 'dompurify';
+import React, { useState } from "react"
+import { useEffect } from "react"
+import PaginatedDataTable from "../../components/PaginatedDataTable"
+import { deleteProductService, getProductsService } from "../../services/products"
+import Actions from "./tableAddition/Actions"
+import { Alert, Confirm } from "../../utils/alerts"
+import AddButtonLink from "../../components/AddButtonLink"
+import DOMPurify from 'dompurify'
 
 const TableProduct = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
   const [searchChar, setSearchChar] = useState("")
   const [currentPage, setCurrentPage] = useState(1) // صفحه حال حاضر
   const [countOnPage, setCountOnPage] = useState(2) // تعداد محصول در هر صفحه
@@ -21,27 +19,27 @@ const TableProduct = () => {
     { field: "id", title: "#" },
     {
       field: null,
-      title: "گروه محصول",
+      title: "Product Group",
       elements: (rowData) => rowData.categories[0]?.title,
     },
     {
       field: null,
-      title: "توضیحات محصول",
+      title: "Product Description",
       elements: (rowData) => <span dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(rowData.descriptions) }}></span>,
     },
-    { field: "title", title: "عنوان" },
-    { field: "price", title: "قیمت" },
-    { field: "stock", title: "موجودی" },
+    { field: "title", title: "Title" },
+    { field: "price", title: "Price" },
+    { field: "stock", title: "Inventory" },
     {
       field: null,
-      title: "عملیات",
+      title: "Action",
       elements: (rowData) => <Actions rowData={rowData} handleDeleteProduct={handleDeleteProduct} />,
     },
-  ];
+  ]
   const searchParams = {
-    title: "جستجو",
-    placeholder: "قسمتی از عنوان را وارد کنید",
-  };
+    title: "Search",
+    placeholder: "Enter part of title",
+  }
 
   const handleGetProducts = async (page, count, char) => {
     setLoading(true)
@@ -59,11 +57,11 @@ const TableProduct = () => {
   }
 
   const handleDeleteProduct = async (product) => {
-    if (await Confirm("حذف محصول", `آیا از حذف ${product.title} اطمینان دارید؟`)) {
+    if (await Confirm("Remove Product", `Are you sure to delete ${product.title}?`)) {
       try {
-        const res = await deleteProductService(product.id);
+        const res = await deleteProductService(product.id)
         if (res.status === 200) {
-          Alert("انجام شد", res.data.message, "success");
+          Alert("Done", res.data.message, "success")
           handleGetProducts(currentPage, countOnPage, searchChar)
 
         }
@@ -92,7 +90,7 @@ const TableProduct = () => {
     >
       <AddButtonLink href={"/products/add-product"} />
     </PaginatedDataTable>
-  );
-};
+  )
+}
 
-export default TableProduct;
+export default TableProduct

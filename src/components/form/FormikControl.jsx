@@ -1,15 +1,15 @@
-import React from 'react';
-import Checkbox from './Checkbox';
-import File from './File';
-import Input from './Input';
-import Select from './Select';
-import NewSelect from './NewSelect';
-import Switch from './Switch';
-import Textarea from './Textarea';
-import MultiSelect from './MultiSelect';
-import SearchableSelect from './SearchableSelect';
-import Ckeditor from './Ckeditor';
-import Date from './Date';
+import React from 'react'
+import Checkbox from './Checkbox'
+import File from './File'
+import Input from './Input'
+import Select from './Select'
+import NewSelect from './NewSelect'
+import Switch from './Switch'
+import Textarea from './Textarea'
+import MultiSelect from './MultiSelect'
+import SearchableSelect from './SearchableSelect'
+import Ckeditor from './Ckeditor'
+import Date from './Date'
 
 const FormikControl = (props) => {
     switch (props.control) {
@@ -40,4 +40,4 @@ const FormikControl = (props) => {
     }
 }
 
-export default FormikControl;
+export default FormikControl

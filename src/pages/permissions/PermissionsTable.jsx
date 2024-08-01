@@ -1,30 +1,30 @@
-import React, { useEffect, useState } from "react";
-import PaginatedTable from "../../components/PaginatedTable";
-import { getAllPermissionsService } from "../../services/users";
+import React, { useEffect, useState } from "react"
+import PaginatedTable from "../../components/PaginatedTable"
+import { getAllPermissionsService } from "../../services/users"
 
 const PermissionsTable = () => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
   
     const dataInfo = [
       { field: "id", title: "#" },
-      { field: "title", title: "عنوان" },
-      { field: "description", title: "توضیحات" },
-      { field: "category", title: "عنوان دسته" }      
-    ];
+      { field: "title", title: "Title" },
+      { field: "description", title: "Description" },
+      { field: "category", title: "Category Title" }      
+    ]
   
     const searchParams = {
-      title: "عنوان",
-      placeholder: "قسمتی از عنوان را وارد کنید",
+      title: "Title",
+      placeholder: "Enter part of title",
       searchField: "description",
-    };
+    }
   
     const handleGetAllPermissions = async ()=>{
       setLoading(true)
-      const res = await getAllPermissionsService();
+      const res = await getAllPermissionsService()
       res && setLoading(false)
       if (res.status === 200) {
-          setData(res.data.data);
+          setData(res.data.data)
       }
     }
   
@@ -41,7 +41,7 @@ const PermissionsTable = () => {
       loading={loading}
     >
     </PaginatedTable>
-  );
-};
+  )
+}
 
-export default PermissionsTable;
+export default PermissionsTable

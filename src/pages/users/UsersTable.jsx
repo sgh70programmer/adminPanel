@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
-import AddButtonLink from "../../components/AddButtonLink";
-import PaginatedDataTable from "../../components/PaginatedDataTable";
-import { deleteUserService, getAllPaginatedUsersService, getAllUsersService } from "../../services/users";
-import { Alert, Confirm } from "../../utils/alerts";
-import Actions from "./tableAddition/Actions";
-import Roles from "./tableAddition/Roles";
+import React, { useState } from "react"
+import { useEffect } from "react"
+import { Outlet } from "react-router-dom"
+import AddButtonLink from "../../components/AddButtonLink"
+import PaginatedDataTable from "../../components/PaginatedDataTable"
+import { deleteUserService, getAllPaginatedUsersService } from "../../services/users"
+import { Alert, Confirm } from "../../utils/alerts"
+import Actions from "./tableAddition/Actions"
+import Roles from "./tableAddition/Roles"
 
 const UsersTable = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
   const [searchChar, setSearchChar] = useState("")
   const [currentPage, setCurrentPage] = useState(1) // صفحه حال حاضر
   const [countOnPage, setCountOnPage] = useState(2) // تعداد محصول در هر صفحه
@@ -18,34 +18,34 @@ const UsersTable = () => {
 
   const dataInfo = [
     { field: "id", title: "#" },
-    { field: "user_name", title: "نام کاربری" },
+    { field: "user_name", title: "User Name" },
     {
       field: null,
-      title: "نام",
+      title: "Name",
       elements: (rowData) => `${rowData.first_name || ""} ${rowData.last_name || ""}`,
     },
     {
       field: null,
-      title: "نقش",
+      title: "Role",
       elements: (rowData) => <Roles rowData={rowData} />,
     },
-    { field: "phone", title: "شماره تلفن" },
-    { field: "email", title: "ایمیل" },
+    { field: "phone", title: "Phone Number" },
+    { field: "email", title: "Email" },
     {
       field: null,
-      title: "جنسیت",
-      elements: (rowData) => rowData.gender == 1 ? "آقا" : "خانم",
+      title: "Gender",
+      elements: (rowData) => rowData.gender == 1 ? "sir" : "lady",
     },
     {
       field: null,
-      title: "عملیات",
+      title: "Action",
       elements: (rowData) => <Actions rowData={rowData} handleDeleteUser={handleDeleteUser} />,
     },
-  ];
+  ]
   const searchParams = {
-    title: "جستجو",
-    placeholder: "قسمتی از شماره تماس یا ایمیل را وارد کنید",
-  };
+    title: "Search",
+    placeholder: "Enter part of contact number or email",
+  }
 
   const handleGetUsers = async (page, count, char) => {
     setLoading(true)
@@ -65,11 +65,11 @@ const UsersTable = () => {
   }
 
   const handleDeleteUser = async (user) => {
-    if (await Confirm("حذف کاربر", `آیا از حذف ${user.user_name} اطمینان دارید؟`)) {
+    if (await Confirm("Delete User", `Are you sure to delete ${user.user_name}?`)) {
       try {
-        const res = await deleteUserService(user.id);
+        const res = await deleteUserService(user.id)
         if (res.status === 200) {
-          Alert("انجام شد", res.data.message, "success");
+          Alert("Done", res.data.message, "success")
           handleGetUsers(currentPage, countOnPage, searchChar)
         }
 
@@ -99,7 +99,7 @@ const UsersTable = () => {
       <AddButtonLink href={"/users/add-user"} />
       <Outlet context={{ setData }} />
     </PaginatedDataTable>
-  );
-};
+  )
+}
 
-export default UsersTable;
+export default UsersTable

@@ -1,35 +1,35 @@
-import React, { useContext } from 'react';
-import { Route, Routes } from 'react-router-dom';
-import { AdminContext } from '../context/adminLayoutContext';
-import Carts from './carts/Carts';
-import Brands from './brands/Brands';
-import Category from './category/Category';
-import Colors from './colors/Colors';
-import Comments from './comments/Comments';
-import Dashboard from './dashboard/Dashboard';
-import Deliveries from './deliveries/Deliveries';
-import Discounts from './discounts/Discounts';
-import Guaranties from './guaranties/Guaranties';
-import Orders from './orders/Orders';
-import Permissions from './permissions/Permissions';
-import Product from './product/Product';
-import Questions from './questions/Questions';
-import Roles from './roles/Roles';
-import Users from './users/Users';
-import Logout from './auth/Logout';
-import CategoryChildren from './category/CategoryChildren';
-import Attributes from './category/attrs/Attributes';
-import AddProduct from './product/AddProduct';
-import SetAttribute from './product/setAttr/SetAttribute';
-import ProductGallery from './product/gallery/ProductGallery';
-import AddDiscount from './discounts/AddDiscount';
-import AddRole from './roles/AddRole';
-import AddUser from './users/AddUser';
-import PermComponent from '../components/PermComponent';
-import { useHasPermission } from '../hook/permissionsHook';
-import AddDelivery from './deliveries/AddDelivery';
-import AddCart from './carts/AddCart';
-import AddOrder from './orders/AddOrder';
+import React, { useContext } from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { AdminContext } from '../context/adminLayoutContext'
+import Carts from './carts/Carts'
+import Brands from './brands/Brands'
+import Category from './category/Category'
+import Colors from './colors/Colors'
+import Comments from './comments/Comments'
+import Dashboard from './dashboard/Dashboard'
+import Deliveries from './deliveries/Deliveries'
+import Discounts from './discounts/Discounts'
+import Guaranties from './guaranties/Guaranties'
+import Orders from './orders/Orders'
+import Permissions from './permissions/Permissions'
+import Product from './product/Product'
+import Questions from './questions/Questions'
+import Roles from './roles/Roles'
+import Users from './users/Users'
+import Logout from './auth/Logout'
+import CategoryChildren from './category/CategoryChildren'
+import Attributes from './category/attrs/Attributes'
+import AddProduct from './product/AddProduct'
+import SetAttribute from './product/setAttr/SetAttribute'
+import ProductGallery from './product/gallery/ProductGallery'
+import AddDiscount from './discounts/AddDiscount'
+import AddRole from './roles/AddRole'
+import AddUser from './users/AddUser'
+import PermComponent from '../components/PermComponent'
+import { useHasPermission } from '../hook/permissionsHook'
+import AddDelivery from './deliveries/AddDelivery'
+import AddCart from './carts/AddCart'
+import AddOrder from './orders/AddOrder'
 
 const Content = () => {
   const { showSidebar } = useContext(AdminContext)
@@ -105,7 +105,7 @@ const Content = () => {
         <Route path='*' element={<Dashboard />} />
       </Routes>
     </section>
-  );
+  )
 }
 
-export default Content;
+export default Content

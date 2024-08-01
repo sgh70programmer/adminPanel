@@ -1,10 +1,10 @@
-import { Form, Formik } from 'formik';
-import React, { useEffect, useState } from 'react';
-import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
-import FormikControl from '../../components/form/FormikControl';
-import SubmitButton from '../../components/form/SubmitButton';
-import ModalsContainer from '../../components/ModalsContainer';
-import { initialValues, onSubmit, validationSchema } from './core';
+import { Form, Formik } from 'formik'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom'
+import FormikControl from '../../components/form/FormikControl'
+import SubmitButton from '../../components/form/SubmitButton'
+import ModalsContainer from '../../components/ModalsContainer'
+import { initialValues, onSubmit, validationSchema } from './core'
 
 const AddDelivery = () => {
     const navigate = useNavigate()
@@ -22,7 +22,7 @@ const AddDelivery = () => {
             <ModalsContainer
                 className="show d-block"
                 id={"add_delivery_modal"}
-                title={deliveryToEdit ? "ویرایش روش ارسال" :"افزودن روش ارسال"}
+                title={deliveryToEdit ? "Edit sending method" :"Add transfer method"}
                 fullScreen={false}
                 closeFunction={()=>navigate(-1)}
             >
@@ -41,29 +41,29 @@ const AddDelivery = () => {
                                         control="input"
                                         type="text"
                                         name="title"
-                                        label="عنوان"
-                                        placeholder="فقط از حروف فارسی و لاتین استفاده کنید"
+                                        label="Title"
+                                        placeholder="Only use Persian and Latin letters"
                                         />
                                         <FormikControl
                                         control="input"
                                         type="number"
                                         name="amount"
-                                        label="مبلغ"
-                                        placeholder="فقط از اعداد استفاده کنید"
+                                        label="Amount"
+                                        placeholder="Just use numbers"
                                         />
                                         <FormikControl
                                         control="input"
                                         type="number"
                                         name="time"
-                                        label="مدت ارسال"
-                                        placeholder="فقط از اعداد استفاده کنید"
+                                        label="Delivery Period"
+                                        placeholder="Just use numbers"
                                         />
                                         <FormikControl
                                         control="input"
                                         type="text"
                                         name="time_unit"
-                                        label="واحد مدت"
-                                        placeholder="فقط از حروف فارسی و لاتین استفاده کنید"
+                                        label="term unit"
+                                        placeholder="Only use Persian and Latin letters"
                                         />
                                         <div className="btn_box text-center col-12 mt-4">
                                             <SubmitButton />
@@ -78,7 +78,7 @@ const AddDelivery = () => {
             </ModalsContainer>
 
         </>
-    );
+    )
 }
 
-export default AddDelivery;
+export default AddDelivery

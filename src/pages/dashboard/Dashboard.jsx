@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import ProductTable from "./ProductTable";
-import SaleChart from "./SaleChart";
-import Cards from "./Cards";
-import { useHasPermission } from "../../hook/permissionsHook";
+import React from "react"
+import ProductTable from "./ProductTable"
+import SaleChart from "./SaleChart"
+import Cards from "./Cards"
+import { useHasPermission } from "../../hook/permissionsHook"
 
 const Dashboard = () => {
   const hasCardsPermission = useHasPermission('read_order_statistics')
@@ -17,7 +17,7 @@ const Dashboard = () => {
         {hasChartPermission && <SaleChart />}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default Dashboard

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 const Avatar = ({name , imagePath}) => {
   return (
@@ -11,7 +11,7 @@ const Avatar = ({name , imagePath}) => {
       </span>
       <div className="sidebar_avatar_name text-center hiddenable">{name}</div>
     </li>
-  );
-};
+  )
+}
 
-export default Avatar;
+export default Avatar

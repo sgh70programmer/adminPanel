@@ -1,54 +1,52 @@
-import React, { useEffect, useState } from "react";
-import PaginatedTable from "../../components/PaginatedTable";
-import { deleteGuaranteeService, getAllGuaranteesService } from "../../services/guarantees";
-import { Alert, Confirm } from "../../utils/alerts";
-import AddGuaranty from "./AddGuaranty";
-import Actions from "./tableAddition/Actions";
+import React, { useEffect, useState } from "react"
+import PaginatedTable from "../../components/PaginatedTable"
+import { deleteGuaranteeService, getAllGuaranteesService } from "../../services/guarantees"
+import { Alert, Confirm } from "../../utils/alerts"
+import AddGuaranty from "./AddGuaranty"
+import Actions from "./tableAddition/Actions"
 
 const GuarantiesTable = () => {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([])
+  const [loading, setLoading] = useState(false)
   const [guaranteeToEdit, setGuaranteeToEdit] = useState(null)
 
   const dataInfo = [
     { field: "id", title: "#" },
-    { field: "title", title: "عنوان" },
-    { field: "descriptions", title: "توضیحات" },
-    { field: "length", title: "مدت گارانتی" },
-    { field: "length_unit", title: "واحد" },
+    { field: "title", title: "Title" },
+    { field: "descriptions", title: "Description" },
+    { field: "length", title: "Warranty Period" },
+    { field: "length_unit", title: "Unit" },
     {
       field: null,
-      title: "عملیات",
+      title: "Action",
       elements: (rowData) => <Actions rowData={rowData} setGuaranteeToEdit={setGuaranteeToEdit} handleDeleteGuarantee={handleDeleteGuarantee} />,
     },
-  ];
+  ]
 
-  const additionField = [
 
-  ];
 
   const searchParams = {
-    title: "جستجو",
-    placeholder: "قسمتی از عنوان را وارد کنید",
+    title: "Search",
+    placeholder: "Enter part of title",
     searchField: "title",
-  };
+  }
 
   const handleGetAllGuarantees = async () => {
     setLoading(true)
-    const res = await getAllGuaranteesService();
+    const res = await getAllGuaranteesService()
     res && setLoading(false)
     if (res.status === 200) {
-      setData(res.data.data);
+      setData(res.data.data)
     }
   }
 
   const handleDeleteGuarantee = async (guarantee) => {
-    if (await Confirm("حذف گارانتی", `آیا از حذف ${guarantee.title} اطمینان دارید؟`)) {
+    if (await Confirm("Void Warranty", 'Are you sure you want to delete this item?')) {
       try {
-        const res = await deleteGuaranteeService(guarantee.id);
+        const res = await deleteGuaranteeService(guarantee.id)
         if (res.status === 200) {
-          Alert("انجام شد", res.data.message, "success");
-          setData((lastData) => lastData.filter((d) => d.id != guarantee.id));
+          Alert("Done", res.data.message, "success")
+          setData((lastData) => lastData.filter((d) => d.id != guarantee.id))
         }
 
       } catch {
@@ -56,7 +54,7 @@ const GuarantiesTable = () => {
       }
 
     }
-  };
+  }
 
   useEffect(() => {
     handleGetAllGuarantees()
@@ -71,7 +69,7 @@ const GuarantiesTable = () => {
     >
       <AddGuaranty setData={setData} guaranteeToEdit={guaranteeToEdit} setGuaranteeToEdit={setGuaranteeToEdit} />
     </PaginatedTable>
-  );
-};
+  )
+}
 
-export default GuarantiesTable;
+export default GuarantiesTable

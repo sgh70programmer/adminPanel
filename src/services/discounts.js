@@ -1,12 +1,12 @@
-import httpService from "./httpService";
+import httpService from "./httpService"
 
 export const getAllDiscountsService = () => {
-  return httpService("/admin/discounts", "get");
-};
+  return httpService("/admin/discounts", "get")
+}
 
 export const getOneDiscountService = (discountId) => {
-  return httpService(`/admin/discounts/${discountId}`, "get");
-};
+  return httpService(`/admin/discounts/${discountId}`, "get")
+}
 
 export const addNewDiscountService = (data)=>{
   return httpService("/admin/discounts", 'post', data)

@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import PaginatedTable from "../../../components/PaginatedTable";
-import PrevPageButton from "../../../components/PrevPageButton";
-import {deleteCategoryAttrService, getCategoryAttrsService } from "../../../services/categoryAttr";
-import AttrAction from "./AttrAction";
-import ShowInFilter from "./ShowInFilter";
-import { Alert, Confirm } from "../../../utils/alerts";
-import AddAttr from "./AddAttr";
+import React, { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+import PaginatedTable from "../../../components/PaginatedTable"
+import PrevPageButton from "../../../components/PrevPageButton"
+import { deleteCategoryAttrService, getCategoryAttrsService } from "../../../services/categoryAttr"
+import AttrAction from "./AttrAction"
+import ShowInFilter from "./ShowInFilter"
+import { Alert, Confirm } from "../../../utils/alerts"
+import AddAttr from "./AddAttr"
 
 
 const Attributes = () => {
-  const location = useLocation();
-  const [data, setData] = useState([]);
+  const location = useLocation()
+  const [data, setData] = useState([])
   const [loading, setLoading] = useState(false)
   const [attrToEdit, setAttrToEdit] = useState(null)
   const [reInitValues, setReInitValues] = useState(null)
 
   const dataInfo = [
     { field: "id", title: "#" },
-    { field: "title", title: "عنوان محصول" },
-    { field: "unit", title: "واحد" },
+    { field: "title", title: "Product Title" },
+    { field: "unit", title: "Unit" },
     {
-      field:null,
-      title: "نمایش در فیلتر",
+      field: null,
+      title: "Show in filter",
       elements: (rowData) => <ShowInFilter rowData={rowData} />,
     },
     {
-      field:null,
-      title: "عملیات",
+      field: null,
+      title: "Action",
       elements: (rowData) => <AttrAction rowData={rowData}
         attrToEdit={attrToEdit} setAttrToEdit={setAttrToEdit} handleDeleteCategoryAttr={handleDeleteCategoryAttr} />,
     },
-  ];
- 
+  ]
+
   const searchParams = {
-    title: "جستجو",
-    placeholder: "قسمتی از عنوان را وارد کنید",
+    title: "Search",
+    placeholder: "Enter part of title",
     searchField: "title",
-  };
+  }
 
 
   const handleGetCategoryAttrs = async () => {
@@ -45,25 +45,25 @@ const Attributes = () => {
     try {
       const res = await getCategoryAttrsService(location.state.categoryData.id)
       if (res.status === 200) {
-        setData(res.data.data);
+        setData(res.data.data)
       }
     } catch (error) {
-      
+
     } finally {
       setLoading(false)
     }
   }
 
   const handleDeleteCategoryAttr = async (attr) => {
-    if (await Confirm(`حذف ${attr.title}`, 'آیا از حذف این رکورد اطمینان دارید؟')) {
+    if (await Confirm(`Remove the ${attr.title}`, 'Are you sure to delete this record?')) {
       try {
-        const res = await deleteCategoryAttrService(attr.id);
+        const res = await deleteCategoryAttrService(attr.id)
         if (res.status === 200) {
-          Alert('انجام شد', res.data.message, 'success');
+          Alert('Done', res.data.message, 'success')
           setData(lastData => [...lastData].filter(d => d.id != attr.id))
         }
       } catch (error) {
-        
+
       }
     }
   }
@@ -71,7 +71,7 @@ const Attributes = () => {
 
   useEffect(() => {
     handleGetCategoryAttrs()
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (attrToEdit) setReInitValues({
@@ -84,9 +84,9 @@ const Attributes = () => {
 
   return (
     <>
-      <h4 className="text-center my-3">مدیریت ویژگی های دسته بندی</h4>
+      <h4 className="text-center my-3">Manage category features</h4>
       <h6 className="text-center my-3">
-        ویژگی های :
+        Features :
         <span className="text-primary">
           {location.state.categoryData.title}
         </span>
@@ -117,7 +117,7 @@ const Attributes = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Attributes;
+export default Attributes

@@ -1,50 +1,49 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import AddButtonLink from '../../components/AddButtonLink';
-import PaginatedTable from '../../components/PaginatedTable';
-import { deleteDeliveryService, getAllDeliveriesService } from '../../services/deliveries';
-import { Alert, Confirm } from '../../utils/alerts';
-import { convertDateToJalali } from '../../utils/convertDate';
-import Actions from './tableAddition/Actions';
+import React, { useEffect, useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import AddButtonLink from '../../components/AddButtonLink'
+import PaginatedTable from '../../components/PaginatedTable'
+import { deleteDeliveryService, getAllDeliveriesService } from '../../services/deliveries'
+import { Alert, Confirm } from '../../utils/alerts'
+import Actions from './tableAddition/Actions'
 
 const DeliveriesTable = () => {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
   
     const dataInfo = [
       { field: "id", title: "#" },
-      { field: "title", title: "عنوان" },
-      { field: "amount", title: "هزینه" },
+      { field: "title", title: "Title" },
+      { field: "amount", title: "Cost" },
       {
         field: null,
-        title: "مدت ارسال",
+        title: "Delivery time",
         elements: (rowData) => rowData.time + " " + rowData.time_unit ,
       },
       {
         field: null,
-        title: "عملیات",
+        title: "Action",
         elements: (rowData) => <Actions rowData={rowData} handleDeleteDelivery={handleDeleteDelivery}/>,
       },
-    ];
+    ]
   
     const searchParams = {
-      title: "جستجو",
-      placeholder: "قسمتی از آی دی کاربر را وارد کنید",
+      title: "Search",
+      placeholder: "Enter part of user ID",
       searchField: "title",
-    };
+    }
   
     const handleGetAllDeliveries = async ()=>{
       setLoading(true)
-      const res = await getAllDeliveriesService();
+      const res = await getAllDeliveriesService()
       setLoading(false)
-      if (res.status === 200) setData(res.data.data);
+      if (res.status === 200) setData(res.data.data)
     }
   
     const handleDeleteDelivery = async (delivery)=>{
-      if (await Confirm(delivery.title, 'آیا از حذف این مورد اطمینان دارید؟')) {
+      if (await Confirm(delivery.title,'Are you sure you want to delete this item?')) {
         const res = await deleteDeliveryService(delivery.id)
         if (res.status === 200) {
-          Alert('حذف شد...!', res.data.message, 'success');
+          Alert('Deleted...!', res.data.message, 'success')
           setData(old=> old.filter(d => d.id != delivery.id))
         }
       }
@@ -64,7 +63,7 @@ const DeliveriesTable = () => {
         <AddButtonLink href={"/deliveries/add-delivery"} />
         <Outlet context={{setData}}/>
       </PaginatedTable>
-    );
+    )
   }
 
-export default DeliveriesTable;
+export default DeliveriesTable

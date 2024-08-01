@@ -1,14 +1,14 @@
-import React from 'react';
-import ModalsContainer from '../../components/ModalsContainer';
-import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
-import { Form, Formik } from 'formik';
-import FormikControl from '../../components/form/FormikControl';
-import { initialValues, onSubmit, validationSchema } from './core';
-import SubmitButton from '../../components/form/SubmitButton';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { getAllProductTitlesService } from '../../services/products';
-import { convertDateToJalali } from '../../utils/convertDate';
+import React from 'react'
+import ModalsContainer from '../../components/ModalsContainer'
+import { useLocation, useNavigate, useOutletContext } from 'react-router-dom'
+import { Form, Formik } from 'formik'
+import FormikControl from '../../components/form/FormikControl'
+import { initialValues, onSubmit, validationSchema } from './core'
+import SubmitButton from '../../components/form/SubmitButton'
+import { useState } from 'react'
+import { useEffect } from 'react'
+import { getAllProductTitlesService } from '../../services/products'
+import { convertDateToJalali } from '../../utils/convertDate'
 
 const AddDiscount = () => {
     const navigate = useNavigate()
@@ -20,16 +20,16 @@ const AddDiscount = () => {
     const { setData } = useOutletContext()
 
     const handleGetAllProductTitles = async () => {
-        const res = await getAllProductTitlesService();
+        const res = await getAllProductTitlesService()
         if (res.status === 200) {
-            setAllProducts(res.data.data.map(p => { return { id: p.id, value: p.title } }));
+            setAllProducts(res.data.data.map(p => { return { id: p.id, value: p.title } }))
         }
     }
 
     const handleSetProductSelectBox = (formik) => {
         
         
-            const idsArr = formik.values.product_ids.split("-").filter(id => id);
+            const idsArr = formik.values.product_ids.split("-").filter(id => id)
             
            
             const selectedProductArr = idsArr.map(id => allProducts.filter(p => p.id == id)[0]).filter(product=>product)
@@ -41,11 +41,11 @@ const AddDiscount = () => {
         return (
             <FormikControl
                 className="animate__animated animate__shakeX"
-                label="برای"
+                label="for"
                 control="searchableSelect"
                 options={allProducts}
                 name="product_ids"
-                firstItem="محصول مورد نظر را انتخاب کنبد..."
+                firstItem="Select the desired product..."
                 resultType="string"
                 initialItems={selectedProductArr.length > 0 ? selectedProductArr : selectedProducts}
             />
@@ -57,8 +57,8 @@ const AddDiscount = () => {
         handleGetAllProductTitles()
             if (discountToEdit) {
                 
-                // setSelectedProducts(discountToEdit.products.map(p =>  ({ id: p.id, value: p.title }) ))
-                const productIds = discountToEdit.products.map(p => p.id).join("-");
+                
+                const productIds = discountToEdit.products.map(p => p.id).join("-")
                
                 setReInitialValues({
                     ...discountToEdit,
@@ -74,7 +74,7 @@ const AddDiscount = () => {
         <ModalsContainer
             className="show d-block"
             id={"add_discount_modal"}
-            title={"افزودن کد تخفیف"}
+            title={"Add discount code"}
             fullScreen={false}
             closeFunction={() => navigate(-1)}
         >
@@ -95,28 +95,28 @@ const AddDiscount = () => {
                                         control="input"
                                         type="text"
                                         name="title"
-                                        label="عنوان تخفیف"
-                                        placeholder="فقط از حروف فارسی و لاتین استفاده کنید"
+                                        label="discount title"
+                                        placeholder="Only use Persian and Latin letters"
                                     />
                                     <FormikControl
                                         control="input"
                                         type="text"
                                         name="code"
-                                        label="کد تخفیف"
-                                        placeholder="فقط از حروف لاتین و اعداد استفاده کنید"
+                                        label="discount code"
+                                        placeholder="Use only Latin letters and numbers"
                                     />
                                     <FormikControl
                                         control="input"
                                         type="number"
                                         name="percent"
-                                        label="درصد تخفیف"
-                                        placeholder="فقط از اعداد استفاده کنید"
+                                        label="discount percent"
+                                        placeholder="Just use numbers"
                                     />
                                     <FormikControl
                                         control="date"
                                         formik={formik}
                                         name="expire_at"
-                                        label="تاریخ انقضاء"
+                                        label="expiration date"
                                         initialDate={discountToEdit?.expire_at || undefined }
                                         yearsLimit={{ from: 10, to: 10 }}
                                     />
@@ -125,7 +125,7 @@ const AddDiscount = () => {
                                             <FormikControl
                                                 control="switch"
                                                 name="for_all"
-                                                label="برای همه"
+                                                label="For all"
                                             />
                                         </div>
                                     </div>
@@ -144,7 +144,7 @@ const AddDiscount = () => {
             </div>
 
         </ModalsContainer>
-    );
+    )
 }
 
-export default AddDiscount;
+export default AddDiscount

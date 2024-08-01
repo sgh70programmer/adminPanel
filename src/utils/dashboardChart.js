@@ -1,5 +1,5 @@
 
-import Chart from "chart.js/auto";
+import Chart from "chart.js/auto"
 
 let chart
 
@@ -8,7 +8,7 @@ export const setDashboardChart = (labels , datapoints)=>{
         labels: labels,
         datasets: [
             {
-                label: 'فروش ماه',
+                label: "Sale of the Month",
                 data: datapoints,
                 borderColor: "#0062ff",
                 fill: true,
@@ -16,7 +16,7 @@ export const setDashboardChart = (labels , datapoints)=>{
                 tension: 0.4
             }
         ]
-    };
+    }
 
     const config = {
         type: 'line',
@@ -26,7 +26,7 @@ export const setDashboardChart = (labels , datapoints)=>{
             plugins: {
                 title: {
                     display: true,
-                    text: 'نمودار فروش یک سال گذشته'
+                    text: "Sales chart of the past year"
                 },
             },
             interaction: {
@@ -44,15 +44,15 @@ export const setDashboardChart = (labels , datapoints)=>{
                     display: true,
                     title: {
                         display: true,
-                        text: ' میلیون تومان'
+                        text: "Million Tomans"
                     },
                     // suggestedMin: -10,
                     // suggestedMax: 200
                 }
             }
         },
-    };
-    const ctx = document.getElementById('myChart').getContext('2d');
+    }
+    const ctx = document.getElementById('myChart').getContext('2d')
     if(chart){
         chart.destroy()
         chart = new Chart(ctx , config)

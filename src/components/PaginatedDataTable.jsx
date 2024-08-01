@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import SpinnerLoad from "./SpinnerLoad";
+import React, { useEffect, useState } from "react"
+import SpinnerLoad from "./SpinnerLoad"
 const PaginatedDataTable = ({
     children,
     tableData,
@@ -13,13 +13,13 @@ const PaginatedDataTable = ({
 }) => {
 
     const pageRange = 3
-    const [pages, setPages] = useState([]);
-   
+    const [pages, setPages] = useState([])
 
-    let timeout;
+
+    let timeout
 
     const handleSetSearchChar = (char) => {
-        clearTimeout(timeout);
+        clearTimeout(timeout)
         timeout = setTimeout(() => {
             handleSearch(char)
         }, 2000)
@@ -27,30 +27,32 @@ const PaginatedDataTable = ({
     }
 
     useEffect(() => {
-       
-        let pArr = [];
+
+        let pArr = []
         for (let i = 1; i <= pageCount; i++) pArr.push(i)
-       
-        setPages(pArr);
+
+        setPages(pArr)
     }, [pageCount])
 
     return (
         <>
             <div className="row justify-content-between">
+                <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-start">
+                    {children}
+                </div>
                 <div className="col-10 col-md-6 col-lg-4">
-                    <div className="input-group mb-3 dir_ltr">
+                    <div className="input-group mb-3">
+                        <span className="input-group-text">{searchParams.title}</span>
                         <input
                             type="text"
                             className="form-control"
                             placeholder={searchParams.placeholder}
                             onChange={(e) => handleSetSearchChar(e.target.value)}
                         />
-                        <span className="input-group-text">{searchParams.title}</span>
+
                     </div>
                 </div>
-                <div className="col-2 col-md-6 col-lg-4 d-flex flex-column align-items-end">
-                    {children}
-                </div>
+
             </div>
             {loading ? (
                 <SpinnerLoad colorClass={"text-primary"} />
@@ -150,7 +152,7 @@ const PaginatedDataTable = ({
                 </nav>
             ) : null}
         </>
-    );
-};
+    )
+}
 
-export default PaginatedDataTable;
+export default PaginatedDataTable

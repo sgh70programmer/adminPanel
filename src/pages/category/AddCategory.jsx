@@ -1,49 +1,49 @@
-import React, { useContext, useEffect, useState } from "react";
-import ModalsContainer from "../../components/ModalsContainer";
-import { Form, Formik } from "formik";
-import FormikControl from "../../components/form/FormikControl";
-import { Alert } from "../../utils/alerts";
-import { getCategoriesService, getSingleCategoryService } from "../../services/category";
-import SubmitButton from "../../components/form/SubmitButton";
-import { useParams } from "react-router-dom";
-import { initialValues, onSubmit, validationSchema } from "./core";
-import { CategoryContext } from "../../context/categoryContext";
+import React, { useContext, useEffect, useState } from "react"
+import ModalsContainer from "../../components/ModalsContainer"
+import { Form, Formik } from "formik"
+import FormikControl from "../../components/form/FormikControl"
+import { Alert } from "../../utils/alerts"
+import { getCategoriesService, getSingleCategoryService } from "../../services/category"
+import SubmitButton from "../../components/form/SubmitButton"
+import { useParams } from "react-router-dom"
+import { initialValues, onSubmit, validationSchema } from "./core"
+import { CategoryContext } from "../../context/categoryContext"
 
 
 const Addcategory = ({ setForceRender }) => {
   const params = useParams()
-  const { editId, setEditId } = useContext(CategoryContext);
-  const [parents, setParents] = useState([]);
-  const [editCategory, setEditCategory] = useState(null);
+  const { editId, setEditId } = useContext(CategoryContext)
+  const [parents, setParents] = useState([])
+  const [editCategory, setEditCategory] = useState(null)
   const [reInitialValues, setReInitialValues] = useState(null)
   const [closeModal, setCloseModal] = useState(false)
 
   const handleGetParentsCategories = async () => {
     try {
-      const res = await getCategoriesService();
+      const res = await getCategoriesService()
 
       if (res.status == 200) {
-        const allParents = res.data.data;
+        const allParents = res.data.data
         setParents(
           allParents.map((p) => {
-            return { id: p.id, value: p.title };
+            return { id: p.id, value: p.title }
           })
-        );
+        )
       }
     } catch (error) {
-      Alert("مشکل...!", "متاسفانه دسته بندی های والد دریافت نشد", "warning");
+      Alert("problem...!", "Unfortunately, parent categories were not received.", "warning")
     }
   }
 
   const handleGetSingleCategory = async () => {
     try {
-      const res = await getSingleCategoryService(editId);
+      const res = await getSingleCategoryService(editId)
       if (res.status == 200) {
-        const oldCategory = res.data.data;
-        setEditCategory(oldCategory);
+        const oldCategory = res.data.data
+        setEditCategory(oldCategory)
       }
     } catch (error) {
-      Alert("مشکل...!", "متاسفانه دسته مورد نظر دریافت نشد", "warning");
+      Alert("problem...!", "Unfortunately, the requested category was not received", "warning")
     }
   }
 
@@ -65,7 +65,7 @@ const Addcategory = ({ setForceRender }) => {
         image: null,
         is_active: editCategory.is_active ? true : false,
         show_in_menu: editCategory.show_in_menu ? true : false,
-      });
+      })
     } else if (params.categoryId) {
       setReInitialValues({
         ...initialValues,
@@ -93,8 +93,8 @@ const Addcategory = ({ setForceRender }) => {
         id="add_product_category_modal"
         title={
           editId
-            ? "ویرایش : " + (editCategory ? editCategory.title : "")
-            : "افزودن دسته محصولات"
+            ? "editing : " + (editCategory ? editCategory.title : "")
+            : "Add product category"
         }
         closeModal={closeModal}
       >
@@ -113,8 +113,8 @@ const Addcategory = ({ setForceRender }) => {
                   control="newselect"
                   options={parents}
                   name="parent_id"
-                  label="دسته والد"
-                  firstItem="دسته والد را انتخاب کنید..."
+                  label="parent category"
+                  firstItem="Select parent category..."
                 />}
 
                 <FormikControl
@@ -122,22 +122,22 @@ const Addcategory = ({ setForceRender }) => {
                   control="input"
                   type="text"
                   name="title"
-                  label="عنوان دسته"
-                  placeholder="عنوان دسته"
+                  label="category title"
+                  placeholder="category title"
                 />
                 <FormikControl
                   className="col-md-6 col-lg-8"
                   control="textarea"
                   name="description"
-                  label="توضیحات"
-                  placeholder="توضیحات"
+                  label="description"
+                  placeholder="description"
                 />
                 {!editId && <FormikControl
                   className="col-md-6 col-lg-8"
                   control="file"
                   name="image"
-                  label="تصویر"
-                  placeholder="تصویر"
+                  label="image"
+                  placeholder="image"
                 />}
 
                 <div className="col-12 col-md-6 col-lg-8 row justify-content-center">
@@ -145,14 +145,14 @@ const Addcategory = ({ setForceRender }) => {
                     <FormikControl
                       control="switch"
                       name="is_active"
-                      label="وضعیت فعال"
+                      label="Active Status"
                     />
                   </div>
                   <div className="col-12 col-md-4 col-lg-3 mx-lg-5">
                     <FormikControl
                       control="switch"
                       name="show_in_menu"
-                      label="نمایش در منو"
+                      label="show in menu"
                     />
                   </div>
                 </div>
@@ -171,7 +171,7 @@ const Addcategory = ({ setForceRender }) => {
 
       </ModalsContainer>
     </>
-  );
-};
+  )
+}
 
-export default Addcategory;
+export default Addcategory

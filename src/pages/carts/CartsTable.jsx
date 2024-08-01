@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
-import AddButtonLink from '../../components/AddButtonLink';
-import PaginatedDataTable from '../../components/PaginatedDataTable';
-import { deleteCartService, getAllPaginatedCartsService } from '../../services/carts';
-import { Alert, Confirm } from '../../utils/alerts';
-import Actions from './tableAddition/Actions';
+import React, { useEffect, useState } from 'react'
+import { Outlet } from 'react-router-dom'
+import AddButtonLink from '../../components/AddButtonLink'
+import PaginatedDataTable from '../../components/PaginatedDataTable'
+import { deleteCartService, getAllPaginatedCartsService } from '../../services/carts'
+import { Alert, Confirm } from '../../utils/alerts'
+import Actions from './tableAddition/Actions'
 
 const CartsTable = () =>  {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
     const [searchChar, setSearchChar] = useState("") 
     const [currentPage, setCurrentPage] = useState(1) // صفحه حال حاضر
     const [countOnPage, setCountOnPage] = useState(5) // تعداد محصول در هر صفحه
@@ -16,33 +16,33 @@ const CartsTable = () =>  {
   
     const dataInfo = [
       { field: "id", title: "#" },
-      { field: "user_id", title: "آی دی کاربر" },
+      { field: "user_id", title: "User ID" },
       {
         field: null,
-        title: "نام کاربر",
+        title: "UserName",
         elements: (rowData) => `${rowData.user.first_name || ""} ${rowData.user.last_name || ""}`,
       },
       {
         field: null,
-        title: "موبایل کاربر",
+        title: "mobile",
         elements: (rowData) => rowData.user.phone,
       },
       {
         field: null,
-        title: "تعداد کالاها",
+        title: "Numbers of goods",
         elements: (rowData) => rowData.items.length,
       },
       {
         field: null,
-        title: "عملیات",
+        title: "Action",
         elements: (rowData) => <Actions rowData={rowData} handleDeleteCart={handleDeleteCart}/>,
       },
-    ];
+    ]
 
     const searchParams = {
-      title: "جستجو",
-      placeholder: "قسمتی از شماره تماس کاربر را وارد کنید",
-    };
+      title: "Search",
+      placeholder: "Enter a part of the contact number",
+    }
   
     const handleGetCarts = async (page=currentPage, count=countOnPage, char=searchChar)=>{
       setLoading(true)
@@ -60,10 +60,10 @@ const CartsTable = () =>  {
     }
   
     const handleDeleteCart = async (cart)=>{
-      if (await Confirm("حذف سبد",`آیا از حذف ${cart.id} اطمینان دارید؟`)) {
-        const res = await deleteCartService(cart.id);
+      if (await Confirm("Remove the basket", `Are you sure to delete ${cart.id}?`)) {
+        const res = await deleteCartService(cart.id)
         if (res.status === 200) {
-          Alert("انجام شد", res.data.message, "success");
+          Alert("Done", res.data.message, "success")
           handleGetCarts(currentPage, countOnPage, searchChar)
         }
       }
@@ -87,7 +87,7 @@ const CartsTable = () =>  {
         <AddButtonLink href={"/carts/add-cart"}/>
         <Outlet context={{handleGetCarts}}/>
       </PaginatedDataTable>
-    );
-  };
+    )
+  }
 
-export default CartsTable;
+export default CartsTable

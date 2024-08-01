@@ -1,10 +1,11 @@
 
-import * as Yup from "yup";
-import { addProductAttrService } from "../../../services/products";
-import { Alert } from "../../../utils/alerts";
-import { getCategoryAttrsService } from "../../../services/categoryAttr";
+import * as Yup from "yup"
+import { addProductAttrService } from "../../../services/products"
+import { Alert } from "../../../utils/alerts"
+import { getCategoryAttrsService } from "../../../services/categoryAttr"
 
 export const initializingData = async (selectedProduct) => {
+  console.log("selectedProduct", selectedProduct)
   let attrsVar = []
   let initials = {}
   let rules = {}
@@ -24,6 +25,7 @@ export const initializingData = async (selectedProduct) => {
       }
     })
   )
+ 
 
  
   return {
@@ -34,15 +36,15 @@ export const initializingData = async (selectedProduct) => {
 }
 
 export const onSubmit = async (values, actions, productId) => {
-  let data = {}
 
+  let data = {}
   for (const key in values) {
     if (values[key]) data = { ...data, [key]: { value: values[key] } }
   }
-
+ 
   const res = await addProductAttrService(productId, data)
 
   if (res.status === 200) {
-    Alert('انجام شد', res.data.message, 'success');
+    Alert('Done', res.data.message, 'success')
   }
-};
+}

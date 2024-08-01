@@ -1,20 +1,20 @@
 
-import React from "react";
-import { FastField, Form, Formik } from "formik";
-import * as Yup from "yup";
-import AuthFormikControl from "../../components/authForm/AuthFormikControl";
-import { Navigate, useNavigate } from "react-router-dom";
-import { loginService } from "../../services/auth";
-import { Alert } from "../../utils/alerts";
+import React from "react"
+import {Form, Formik } from "formik"
+import * as Yup from "yup"
+import AuthFormikControl from "../../components/authForm/AuthFormikControl"
+import {useNavigate } from "react-router-dom"
+import { loginService } from "../../services/auth"
+
 
 const initialValues = {
     phone: "",
     password: "",
     remember: false,
-};
+}
 const onSubmit = async (values, submitMethods, navigate) => {
     try {
-        const res = await loginService(values);
+        const res = await loginService(values)
         if (res.status == 200) {
             localStorage.setItem("loginToken", JSON.stringify(res.data))
             navigate("/")
@@ -26,17 +26,17 @@ const onSubmit = async (values, submitMethods, navigate) => {
         submitMethods.setSubmitting(false)
         
     }
-};
+}
 const validationSchema = Yup.object({
     phone: Yup.string()
-        .required("لطفا این قسمت را پر کنید")
-        .matches(/^09(0[1-2]|1[0-9]|3[0-9]|2[0-1])-?[0-9]{3}-?[0-9]{4}$/, "شماره تلفن باید 11 رقم باشد")
+        .required("Please fill in this field")
+        .matches(/^09(0[1-2]|1[0-9]|3[0-9]|2[0-1])-?[0-9]{3}-?[0-9]{4}$/, "Phone number must be 11 digits")
     ,
     password: Yup.string()
-        .required("لطفا این قسمت را پر کنید")
-        .matches(/^[a-zA-Z0-9@!%$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
+        .required("Please fill in this field")
+        .matches(/^[a-zA-Z0-9@!%$?&]+$/, "Use only letters and numbers"),
     remember: Yup.boolean(),
-});
+})
 
 const Login = () => {
     const navigate = useNavigate()
@@ -51,7 +51,7 @@ const Login = () => {
                 return (
                     <div className="wrap-login100">
                         <Form className="login100-form validate-form pos-relative d-flex flex-column align-items-center justify-content-center">
-                            <span className="login100-form-title">ورود اعضا</span>
+                            <span className="login100-form-title">members enterance</span>
 
                             <AuthFormikControl
                                 formik={formik}
@@ -59,7 +59,7 @@ const Login = () => {
                                 type="text"
                                 name="phone"
                                 icon="fa fa-mobile"
-                                label="شماره موبایل"
+                                label="phone number"
                             />
 
                             <AuthFormikControl
@@ -68,19 +68,19 @@ const Login = () => {
                                 type="password"
                                 name="password"
                                 icon="fa fa-lock"
-                                label="رمز عبور"
+                                label="password"
                             />
 
                             <AuthFormikControl
                                 control="switch"
                                 name="remember"
-                                label="مرا بخاطر بسپارید"
+                                label="remember me"
                             />
 
 
                             <div className="container-login100-form-btn">
-                                <button className="login100-form-btn" disabled={formik.isSubmitting}>
-                                    {formik.isSubmitting ? "لطفا صبر کنید..." : "ورود"}
+                                <button type="submit" className="login100-form-btn" disabled={formik.isSubmitting}>
+                                    {formik.isSubmitting ? "please wait..." : "log in"}
                                 </button>
                             </div>
                         </Form>
@@ -88,10 +88,10 @@ const Login = () => {
                             <img src="/auth/images/img-01.png" alt="IMG" />
                         </div>
                     </div>
-                );
+                )
             }}
         </Formik>
-    );
-};
+    )
+}
 
-export default Login;
+export default Login

@@ -1,6 +1,6 @@
-import { FastField } from 'formik';
-import React from 'react';
-import SpinnerLoad from '../SpinnerLoad';
+import { FastField } from 'formik'
+import React from 'react'
+import SpinnerLoad from '../SpinnerLoad'
 
 const SubmitButton = () => {
     return (
@@ -9,13 +9,13 @@ const SubmitButton = () => {
             
           return (
             <button type="submit" className="btn btn-primary btn-sm" disabled={form.isSubmitting}>
-              ذخیره
+              save
               {form.isSubmitting ? <SpinnerLoad colorClass={"text-white"} isSmall={true} inline={true}/> : null}
             </button>
-          );
+          )
         }}
       </FastField>
-    );
+    )
 }
 
-export default SubmitButton;
+export default SubmitButton

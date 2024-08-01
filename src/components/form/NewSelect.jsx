@@ -1,6 +1,6 @@
-import { ErrorMessage, FastField, Field } from "formik";
-import React from "react";
-import FormikError from "./FormikError";
+import { ErrorMessage, Field } from "formik"
+import React from "react"
+import FormikError from "./FormikError"
 
 const NewSelect = ({ options, name, label, className, firstItem, handleOnchange }) => {
 
@@ -17,7 +17,8 @@ const NewSelect = ({ options, name, label, className, firstItem, handleOnchange 
     }
     return (
         <div className={`col-12 ${className}`}>
-            <div className="input-group mb-3 dir_ltr">
+            <div className="input-group mb-3">
+                <span className="input-group-text justify-content-center">{label}</span>
                 <Field>
                     {({ form }) => {
 
@@ -26,7 +27,7 @@ const NewSelect = ({ options, name, label, className, firstItem, handleOnchange 
                             <>
                                 {handleOnchange ? (<Field as="select" className="form-control" id={name} name={name}
                                     onChange={(e) => handleOnchange(e.target.value, form)}>
-                                        {setOptions()}
+                                    {setOptions()}
 
                                 </Field>) : (<Field as="select" className="form-control" id={name} name={name} >
                                     {setOptions()}
@@ -36,11 +37,11 @@ const NewSelect = ({ options, name, label, className, firstItem, handleOnchange 
                         )
                     }}
                 </Field>
-                <span className="input-group-text w_6rem justify-content-center">{label}</span>
+
             </div>
             <ErrorMessage name={name} component={FormikError} />
         </div>
-    );
-};
+    )
+}
 
-export default NewSelect;
+export default NewSelect

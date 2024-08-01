@@ -1,11 +1,11 @@
 
-import React from "react";
+import React from "react"
 const Actions = ({ rowData, setGuaranteeToEdit, handleDeleteGuarantee}) => {
   return (
     <>
       <i
         className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-        title="ویرایش گارانتی"
+        title="Warranty Edit"
         data-bs-placement="top"
         data-bs-toggle="modal"
         data-bs-target="#add_guarantee_modal"
@@ -14,13 +14,13 @@ const Actions = ({ rowData, setGuaranteeToEdit, handleDeleteGuarantee}) => {
 
       <i
         className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-        title="حذف گارانتی"
+        title="Void Warranty"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         onClick={()=>{handleDeleteGuarantee(rowData)}}
       ></i>
     </>
-  );
-};
+  )
+}
 
-export default Actions;
+export default Actions

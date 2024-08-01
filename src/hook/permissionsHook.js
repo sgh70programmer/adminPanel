@@ -1,8 +1,8 @@
-import { useSelector } from "react-redux";
+import { useSelector } from "react-redux"
 
 export const useHasPermission = (pTitle)=>{
     const user = useSelector(state=>state.userReducer.data)
-    const roles = user.roles;
+    const roles = user.roles
     let permissions = []
     for (const role of roles)  permissions = [...permissions, ...role.permissions]
     const isAdmin = roles.findIndex(r=>r.title === "admin") > -1

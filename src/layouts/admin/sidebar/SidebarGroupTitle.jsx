@@ -1,6 +1,6 @@
 
-import React from "react";
-import { useHasPermission } from "../../../hook/permissionsHook";
+import React from "react"
+import { useHasPermission } from "../../../hook/permissionsHook"
 
 const SidebarGroupTitle = ({ title, pTitles }) => {
   const hasPerm = useHasPermission(pTitles)
@@ -8,7 +8,7 @@ const SidebarGroupTitle = ({ title, pTitles }) => {
     <li className="py-1 text-start d-flex justify-content-center no_pointer no_hover siebar_items">
       <span className="hiddenable no_wrap group_sidebar_title">{title}</span>
     </li>
-  );
-};
+  )
+}
 
-export default SidebarGroupTitle;
+export default SidebarGroupTitle

@@ -1,7 +1,7 @@
 
-import React, { useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { CategoryContext } from "../../../context/categoryContext";
+import React, { useContext } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import { CategoryContext } from "../../../context/categoryContext"
 
 const Actions = ({ rowData, handleDeleteCategory }) => {
   const navigate = useNavigate()
@@ -11,7 +11,7 @@ const Actions = ({ rowData, handleDeleteCategory }) => {
     <>
       {!params.categoryId && <i
         className="fas fa-project-diagram text-info mx-1 hoverable_text pointer has_tooltip"
-        title="زیرمجموعه"
+        title="subset"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         onClick={() => navigate(`/categories/${rowData.id}`, {
@@ -23,7 +23,7 @@ const Actions = ({ rowData, handleDeleteCategory }) => {
 
       <i
         className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-        title="ویرایش دسته"
+        title="Category editing"
         data-bs-placement="top"
         data-bs-toggle="modal"
         data-bs-target="#add_product_category_modal"
@@ -31,7 +31,7 @@ const Actions = ({ rowData, handleDeleteCategory }) => {
       ></i>
       {params.categoryId && <i
         className="fas fa-receipt text-success mx-1 hoverable_text pointer has_tooltip"
-        title="افزودن ویژگی"
+        title="Feature adding"
         data-bs-placement="top"
         onClick={() =>
           navigate(`/categories/${rowData.id}/attributes`, {
@@ -44,13 +44,13 @@ const Actions = ({ rowData, handleDeleteCategory }) => {
 
       <i
         className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-        title="حذف دسته"
+        title="Category deleting"
         data-bs-toggle="tooltip"
         data-bs-placement="top"
         onClick={() => handleDeleteCategory(rowData)}
       ></i>
     </>
-  );
-};
+  )
+}
 
-export default Actions;
+export default Actions

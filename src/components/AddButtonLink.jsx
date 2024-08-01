@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link} from 'react-router-dom';
+import React from 'react'
+import {Link} from 'react-router-dom'
 
 const AddButtonLink = ({href}) => {
     return (
@@ -8,7 +8,7 @@ const AddButtonLink = ({href}) => {
               <i className="fas fa-plus text-light"></i>
           </span>
         </Link>
-    );
+    )
 }
 
-export default AddButtonLink;
+export default AddButtonLink

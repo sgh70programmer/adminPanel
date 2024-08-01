@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import ModalsContainer from '../../components/ModalsContainer';
+import React, { useEffect, useState } from 'react'
+import ModalsContainer from '../../components/ModalsContainer'
 import { Formik, Form } from 'formik'
-import { initialValues, onSubmit, validationSchema } from './core';
-import FormikControl from '../../components/form/FormikControl';
-import SubmitButton from '../../components/form/SubmitButton';
-import { apiPath } from '../../services/httpService';
+import { initialValues, onSubmit, validationSchema } from './core'
+import FormikControl from '../../components/form/FormikControl'
+import SubmitButton from '../../components/form/SubmitButton'
+import { apiPath } from '../../services/httpService'
 
 
 const AddBrands = ({ setData, brandToEdit, setBrandToEdit }) => {
-    const [reInitValues, setReInitValues] = useState(null);
+    const [reInitValues, setReInitValues] = useState(null)
     const [closeModal, setCloseModal] = useState(false)
 
     useEffect(() => {
@@ -29,7 +29,7 @@ const AddBrands = ({ setData, brandToEdit, setBrandToEdit }) => {
             </button>
             <ModalsContainer
                 id={"add_brand_modal"}
-                title={brandToEdit ? "ویرایش برند " + brandToEdit.original_name: "افزودن برند"}
+                title={brandToEdit ? "Brand editing" + brandToEdit.original_name: "Brand adding"}
                 fullScreen={false}
                 closeModal={closeModal}
             >
@@ -46,21 +46,21 @@ const AddBrands = ({ setData, brandToEdit, setBrandToEdit }) => {
                                     control="input"
                                     type="text"
                                     name="original_name"
-                                    label="عنوان لاتین"
-                                    placeholder="کیبرد را در حالت لاتین قرار دهید"
+                                    label="Latin Title"
+                                    placeholder="Put the keyboard in Latin mode"
                                 />
                                 <FormikControl
                                     control="input"
                                     type="text"
                                     name="persian_name"
-                                    label="عنوان فارسی"
-                                    placeholder="کیبرد را در حالت فارسی قرار دهید"
+                                    label="Persian Title"
+                                    placeholder="Put the keyboard in Farsi mode"
                                 />
                                 <FormikControl
                                     control="textarea"
                                     name="descriptions"
-                                    label="توضیحات"
-                                    placeholder="توضیحات"
+                                    label="Description"
+                                    placeholder="description"
                                 />
 
                                 {
@@ -74,8 +74,8 @@ const AddBrands = ({ setData, brandToEdit, setBrandToEdit }) => {
                                 <FormikControl
                                     control="file"
                                     name="logo"
-                                    label="تصویر"
-                                    placeholder="تصویر"
+                                    label="Logo"
+                                    placeholder="logo"
                                 />
 
                                 <div className="btn_box text-center col-12">
@@ -89,7 +89,7 @@ const AddBrands = ({ setData, brandToEdit, setBrandToEdit }) => {
             </ModalsContainer>
         </>
 
-    );
+    )
 }
 
-export default AddBrands;
+export default AddBrands

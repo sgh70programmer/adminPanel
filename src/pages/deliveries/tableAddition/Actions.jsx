@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import {useNavigate} from 'react-router-dom'
 const Actions = ({rowData, handleDeleteDelivery}) => {
   const navigate = useNavigate()
@@ -6,17 +6,17 @@ const Actions = ({rowData, handleDeleteDelivery}) => {
     <>
       <i
         className="fas fa-edit text-warning mx-1 hoverable_text pointer has_tooltip"
-        title="ویرایش روش ارسال"
+        title="Edit sending method"
         onClick={()=>navigate('/deliveries/add-delivery', {state:{deliveryToEdit:rowData}})}
       ></i>
 
       <i
         className="fas fa-times text-danger mx-1 hoverable_text pointer has_tooltip"
-        title="حذف روش ارسال"
+        title="Remove sending method"
         onClick={()=>handleDeleteDelivery(rowData)}
       ></i>
     </>
-  );
-};
+  )
+}
 
-export default Actions;
+export default Actions

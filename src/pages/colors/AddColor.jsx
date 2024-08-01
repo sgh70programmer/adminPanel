@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import ModalsContainer from "../../components/ModalsContainer";
-import { initialValues, onSubmit, validationSchema } from "./core";
-import { Formik, Form, FastField } from "formik";
-import FormikControl from "../../components/form/FormikControl";
-import SubmitButton from "../../components/form/SubmitButton";
+import React, { useEffect, useState } from "react"
+import ModalsContainer from "../../components/ModalsContainer"
+import { initialValues, onSubmit, validationSchema } from "./core"
+import { Formik, Form } from "formik"
+import FormikControl from "../../components/form/FormikControl"
+import SubmitButton from "../../components/form/SubmitButton"
 
 const AddColor = ({ setData, colorToEdit, setColorToEdit }) => {
-  const [reInitValues, setReInitValues] = useState(null);
+  const [reInitValues, setReInitValues] = useState(null)
   const [colorPickerValue, setColorPickerValue] = useState("#000")
   const [closeModal, setCloseModal] = useState(false)
 
@@ -16,18 +16,15 @@ const AddColor = ({ setData, colorToEdit, setColorToEdit }) => {
         setReInitValues({
             title: colorToEdit.title,
             code: colorToEdit.code,
-        });
+        })
     }      
     else {
         setColorPickerValue("#000")
         setReInitValues(null)
-    };
-  }, [colorToEdit]);
+    }
+  }, [colorToEdit])
 
-  const handleChangeColorCodeField = (e, form)=>{
-    setColorPickerValue(e.target.value)
-    form.setFieldValue("code", e.target.value)
-  }
+ 
 
   return (
     <>
@@ -42,7 +39,7 @@ const AddColor = ({ setData, colorToEdit, setColorToEdit }) => {
       <ModalsContainer
         fullScreen={false}
         id={"add_color_modal"}
-        title={colorToEdit ? "ویرایش رنگ" : "افزودن رنگ جدید"}
+        title={colorToEdit ? "Color Edit" : "Add New Color"}
         closeModal={closeModal}
       >
         <div className="container">
@@ -60,39 +57,17 @@ const AddColor = ({ setData, colorToEdit, setColorToEdit }) => {
                   control="input"
                   type="text"
                   name="title"
-                  label="عنوان"
-                  placeholder="فقط حروف و اعداد"
+                  label="Title"
+                  placeholder="Only letters and numbers"
                 />
                 <FormikControl
                   control="input"
                   type="color"
                   name="code"
-                  label="انتخاب رنگ"
-                  placeholder="فقط حروف و اعداد"
+                  label="color selection"
+                  placeholder="Only letters and numbers"
                 />
-                {/* <FastField>
-                  {({form}) => {
-                    return (
-                      <div className="col-12 d-flex align-items-center justify-content-start">
-                        <label
-                          htmlFor="exampleColorInput"
-                          className="form-label m-0"
-                        >
-                          انتخاب رنگ
-                        </label>
-                        <input
-                          type="color"
-                          className="form-control form-control-color mx-3"
-                          id="code"
-                          name="code"
-                          title="انتخاب رنگ"
-                          value={colorPickerValue}
-                          onChange={(e)=>handleChangeColorCodeField(e, form)}
-                        />
-                      </div>
-                    );
-                  }}
-                </FastField> */}
+      
                 <div className="btn_box text-center col-12 mt-4">
                   <SubmitButton />
                 </div>
@@ -102,7 +77,7 @@ const AddColor = ({ setData, colorToEdit, setColorToEdit }) => {
         </div>
       </ModalsContainer>
     </>
-  );
-};
+  )
+}
 
-export default AddColor;
+export default AddColor

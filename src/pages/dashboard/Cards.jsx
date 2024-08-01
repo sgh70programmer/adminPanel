@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import SpinnerLoad from '../../components/SpinnerLoad';
-import { getOrdersStatisticsService } from '../../services/orders';
-import Card from './Card';
+import React, { useEffect, useState } from 'react'
+import SpinnerLoad from '../../components/SpinnerLoad'
+import { getOrdersStatisticsService } from '../../services/orders'
+import Card from './Card'
 
 const cardObjects = [
     {
         key:1,
         name: "carts",
         currentValue:"",
-        title:"سبد خرید امروز",
-        desc:"سبد های خرید مانده امروز",
+        title:"Today's shopping cart",
+        desc:"Today's remaining shopping carts",
         icon:"fas fa-shopping-basket",
         lastWeekValue:"",
         lastMonthValue:"",
@@ -18,8 +18,8 @@ const cardObjects = [
         key:2,
         name: "pendingOrders",
         currentValue:"",
-        title:"سفارشات مانده امروز",
-        desc:" سفارشات معلق و فاقد پرداختی",
+        title:"Today's remaining orders",
+        desc:"Pending and unpaid orders",
         icon:"fas fa-dolly",
         lastWeekValue:"",
         lastMonthValue:"",
@@ -28,8 +28,8 @@ const cardObjects = [
         key:3,
         name: "successOrders",
         currentValue:"",
-        title:"سفارشات امروز",
-        desc:"سفارشات کامل و دارای پرداختی",
+        title:"Today's Orders",
+        desc:"Complete and paid orders",
         icon:"fas fa-luggage-cart",
         lastWeekValue:"",
         lastMonthValue:"",
@@ -38,8 +38,8 @@ const cardObjects = [
         key:4,
         name:"successOrdersAmount",
         currentValue:"",
-        title:"درآمد امروز",
-        desc:"جمع مبالغ پرداختی (تومان)",
+        title:"Today's Income",
+        desc:"Total amounts paid (tomans)",
         icon:"fas fa-money-check-alt",
         lastWeekValue:"",
         lastMonthValue:"",
@@ -52,7 +52,7 @@ const Cards = () => {
 
     const handleGetCardInfos = async ()=>{
         setLoading(true)
-        const res = await getOrdersStatisticsService();
+        const res = await getOrdersStatisticsService()
         setLoading(false)
         if (res.status === 200) {
             const data = res.data.data
@@ -78,7 +78,7 @@ const Cards = () => {
                 <Card {...cardInfo}/>
             ))}
         </div>
-    );
+    )
 }
 
-export default Cards;
+export default Cards

@@ -1,9 +1,7 @@
-import { Alert } from "../../utils/alerts";
-import * as Yup from "yup";
-import jMoment from 'moment-jalaali';
-import { convertFormDateToMiladi } from "../../utils/convertDate";
-import { addNewDiscountService, updateDiscountService } from "../../services/discounts";
-import { addNewRoleService, addNewUserService, editRolePermissionsService, editRoleService, editUserService } from "../../services/users";
+import { Alert } from "../../utils/alerts"
+import * as Yup from "yup"
+import { convertFormDateToMiladi } from "../../utils/convertDate"
+import { addNewUserService, editUserService } from "../../services/users"
 
 export const initialValues = {
     user_name: "",
@@ -15,7 +13,7 @@ export const initialValues = {
     birth_date: "",
     gender: 1,
     roles_id: []
-};
+}
 
 export const onSubmit = async (values, actions,  setData, userId) => {
     values = {
@@ -25,41 +23,41 @@ export const onSubmit = async (values, actions,  setData, userId) => {
     if (userId) {
         const res = await editUserService(userId, values)
         if (res.status == 200) {
-            Alert('انجام شد', res.data.message, 'success')
+            Alert('Done', res.data.message, 'success')
             setData(lastData=>{
-                let newData = [...lastData];
-                let index = newData.findIndex((d) => d.id == userId);
-                newData[index] = res.data.data;
-                return newData;
+                let newData = [...lastData]
+                let index = newData.findIndex((d) => d.id == userId)
+                newData[index] = res.data.data
+                return newData
             })}
 
     }else{
         const res = await addNewUserService(values)
         if (res.status == 201) {
-            Alert('انجام شد', res.data.message, 'success')
-            actions.resetForm();
+            Alert('Done', res.data.message, 'success')
+            actions.resetForm()
             setData(old=>[...old, res.data.data])
         }
     } 
-};
+}
 
 export const validationSchema = Yup.object().shape({
-    user_name : Yup.string().required("لطفا این قسمت را پر کنید")
-        .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
-    first_name : Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
-    last_name : Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
+    user_name : Yup.string().required("Please fill in this field")
+        .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "Use only letters and numbers"),
+    first_name : Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "Use only letters and numbers"),
+    last_name : Yup.string().matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "Use only letters and numbers"),
     password : Yup.string().when("isEditing", {
         is: true,
         then: () => Yup.string()
-            .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "فقط از حروف و اعداد استفاده شود"),
+            .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "Use only letters and numbers"),
         otherwise: () => Yup.string()
-            .required("لطفا این قسمت را پر کنید")
-            .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "فقط از حروف و اعداد استفاده شود")
+            .required("Please fill in this field")
+            .matches(/^[\u0600-\u06FF\sa-zA-Z0-9@!%-_.$?&]+$/, "Use only letters and numbers")
     }),
-    phone : Yup.number().typeError("فقط عدد وارد کنید").required("لطفا این قسمت را پر کنید"),
-    email : Yup.string().email("لطفا فرمت ایمیل را رعایت کنید"),
-    birth_date : Yup.string().matches(/^[0-9/\ \s-]+$/,"فقط ازاعداد و خط تیره استفاده شود"),
+    phone : Yup.number().typeError("Just enter a number").required("Please fill in this field"),
+    email : Yup.string().email("Please follow the email format"),
+    birth_date : Yup.string().matches(/^[0-9/\ \s-]+$/,"Only use numbers and dashes"),
     gender : Yup.number(),
-    roles_id : Yup.array().min(1, "حد اقل یک مورد انتخاب کنید"),
+    roles_id : Yup.array().min(1, "Choose at least one"),
 
 })

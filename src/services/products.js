@@ -1,16 +1,16 @@
-import { convertDataToFormdata } from "../utils/convertFormData";
-import httpService from "./httpService";
+import { convertDataToFormdata } from "../utils/convertFormData"
+import httpService from "./httpService"
 
 export const getProductsService = (page, countOnPage, searchChar) => {
-  return httpService(`/admin/products?page=${page}&count=${countOnPage}&searchChar=${searchChar}`, "get");
+  return httpService(`/admin/products?page=${page}&count=${countOnPage}&searchChar=${searchChar}`, "get")
 }
 
 export const getAllProductTitlesService = () => {
-  return httpService(`/admin/products/all_titles`, "get");
+  return httpService(`/admin/products/all_titles`, "get")
 }
 
 export const getOneProductService = (productId) => {
-  return httpService(`/admin/products/${productId}`, "get");
+  return httpService(`/admin/products/${productId}`, "get")
 }
 
 export const createNewProductService = (data) => {
@@ -22,7 +22,7 @@ export const editProductService = (productId, data) => {
 }
 
 export const deleteProductService = (productId) => {
-  return httpService(`/admin/products/${productId}`, "delete");
+  return httpService(`/admin/products/${productId}`, "delete")
 }
 
 export const addProductAttrService = (productId, data) => {

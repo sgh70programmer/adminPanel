@@ -1,8 +1,8 @@
-import React from 'react';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import FormikError from './FormikError';
-import { ErrorMessage, Field } from 'formik';
+import React from 'react'
+import { CKEditor } from '@ckeditor/ckeditor5-react'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import FormikError from './FormikError'
+import { ErrorMessage, Field } from 'formik'
 
 
 const Ckeditor = ({name, label, className, placeholder}) => {
@@ -16,7 +16,7 @@ const Ckeditor = ({name, label, className, placeholder}) => {
                         data={form.values[name] || `<p>${label} : ${placeholder}</p>`}
                        
                         onChange={ ( event, editor ) => {
-                            const data = editor.getData();
+                            const data = editor.getData()
                             form.setFieldValue(name, data)
                         }}
                         onBlur={(event, editor) => {
@@ -33,7 +33,7 @@ const Ckeditor = ({name, label, className, placeholder}) => {
                 )
             }}
         </Field>
-    );
+    )
 }
 
-export default Ckeditor;
+export default Ckeditor
