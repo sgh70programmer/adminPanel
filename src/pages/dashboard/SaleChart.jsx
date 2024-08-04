@@ -56,7 +56,7 @@ const SaleChart = () => {
       <>
           {loading && <SpinnerLoad colorClass={"text-primary"}/>}
           <div className={`col-12 col-lg-6 ${loading && 'd-none'}`}>
-            <canvas id="myChart" height="195"></canvas> 
+            <canvas id="myChart" style={{minWidth:"100%", minHeight:"280px"}}></canvas> 
           </div>
       </>
     )
